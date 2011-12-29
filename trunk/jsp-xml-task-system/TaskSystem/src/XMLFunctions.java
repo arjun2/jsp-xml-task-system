@@ -22,6 +22,9 @@ public class XMLFunctions {
 	public static HashMap<Integer,Task> getAllTasks(){
 		return null;
 	}
+	public void StoreAllTasksToXML(HashMap<Integer,Task> tasks){
+		
+	}
 	public static Document xmlDocument(String filename) throws ParserConfigurationException, SAXException, IOException{
 	    // parse an XML document into a DOM tree
 	    DocumentBuilderFactory parserFactory = DocumentBuilderFactory.newInstance();
