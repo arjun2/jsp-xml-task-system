@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Collection>
+    <books>
+        <book itemId="307">
+            <name>JAXB today and beyond</name>
+            <ISBN>987665</ISBN>
+            <price>45$</price>
+            <authors>
+                <authorName>Richard K</authorName>
+            </authors>
+            <description>This is an intermediate book on JAXB</description>
+            <promotion>
+                <Discount>5% off regular price</Discount>
+            </promotion>
+            <bookCategory>other</bookCategory>
+        </book>
+    </books>
+</Collection>
