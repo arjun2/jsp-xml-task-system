@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xns:tasks xmlns:xns="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3.org/1999/xhtml tasks.xsd ">
+	<task ID="1" name="test" priority="High" dependsOn="0"
+		dueDate="2001-01-01" />
+</xns:tasks>
