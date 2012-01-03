@@ -44,6 +44,11 @@ public class TaskSystemAPI {
 		}
 		
 	}
+	/**
+	 * Writes given task objects to the given user's xml file
+	 * @param username
+	 * @param taskList
+	 */
 	public void setUsersTasks(String username,List<TaskType> taskList){
 		try{
         JAXBContext jaxbContext = JAXBContext.newInstance("org.w3._1999.xhtml");
