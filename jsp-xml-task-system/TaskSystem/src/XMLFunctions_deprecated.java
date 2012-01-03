@@ -18,11 +18,11 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 
-public class XMLFunctions {
-	public static HashMap<Integer,Task> getAllTasks(){
+public class XMLFunctions_deprecated {
+	public static HashMap<Integer,Task_deprecated> getAllTasks(){
 		return null;
 	}
-	public void StoreAllTasksToXML(HashMap<Integer,Task> tasks){
+	public void StoreAllTasksToXML(HashMap<Integer,Task_deprecated> tasks){
 		
 	}
 	public static Document xmlDocument(String filename) throws ParserConfigurationException, SAXException, IOException{
