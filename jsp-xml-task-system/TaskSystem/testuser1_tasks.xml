@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:Tasks xmlns:ns2="http://www.w3.org/1999/xhtml">
+    <task dependsOn="0" priority="High" name="test" ID="2"/><task ID="1"
+    	name="get a mouse" priority="Low">
+</task>
+	<task ID="2" priority="Medium" name="get a keyboard"></task>
+</ns2:Tasks>

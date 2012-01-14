@@ -7,9 +7,11 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
-import org.w3._1999.xhtml.ObjectFactory;
 import org.w3._1999.xhtml.TaskType;
 import org.w3._1999.xhtml.TasksType;
+import org.w3._1999a.xhtml.UserType;
+import org.w3._1999a.xhtml.UsersType;
+
 
 /** 
  * Each user gets their own xml file of the tasks username_tasks.xml
@@ -34,8 +36,7 @@ public class TaskSystemAPI {
             new Boolean(true));
 
 
-        TasksType tasks= (TasksType)
-                 unmarshaller.unmarshal(new File( username+"_tasks.xml"));
+        TasksType tasks= (TasksType)       unmarshaller.unmarshal(new File( username+"_tasks.xml"));
 
         List<TaskType> taskList = tasks.getTask();
 		return taskList;
@@ -64,10 +65,79 @@ public class TaskSystemAPI {
 		
 	}
 	public static boolean isAuthValid(String username, String password){
-		return false;
+		try{
+	        JAXBContext jc = JAXBContext.newInstance("org.w3._1999a.xhtml");
+
+	        Unmarshaller unmarshaller = jc.createUnmarshaller();
+
+	        Marshaller marshaller = jc.createMarshaller();
+	        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT ,
+	            new Boolean(true));
+
+
+	        UsersType users= (UsersType)
+	                 unmarshaller.unmarshal(new File( "users.xml"));
+
+	        List<UserType> userList = users.getUser();
+	        for(UserType user : userList){
+	        	if(user.getUsername().equals(username) && user.getPassword().equals(password)){
+	        		return true;
+	        	}
+	        }
+			return false;
+			}catch (Exception e){
+				e.printStackTrace();
+				return false;
+			}
 	}
 	public static boolean createUser(String username, String password){
 		//check if user and username_tasks.xml already exists. if not create username_tasks.xml and return true if successful
-		return false;
+		try{
+	        JAXBContext jc = JAXBContext.newInstance("org.w3._1999a.xhtml");
+
+	        Unmarshaller unmarshaller = jc.createUnmarshaller();
+
+	        Marshaller marshaller = jc.createMarshaller();
+	        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT ,
+	            new Boolean(true));
+
+
+	        UsersType users=  (UsersType)unmarshaller.unmarshal(new File( "users.xml"));
+
+	        List<UserType> userList = users.getUser();
+	        for(UserType user : userList){
+	        	if(user.getUsername().equals(username)){
+	        		return false;//username already exists
+	        	}
+	        }
+			UserType newUser = new UserType();
+			newUser.setUsername(username);
+			newUser.setPassword(password);
+			userList.add(newUser);
+
+	        marshaller.marshal(users,new FileOutputStream("users.xml"));
+	
+	        return true;
+			}catch (Exception e){
+				e.printStackTrace();
+				return false;
+			}
+	}
+	public static void main(String[] args) throws Exception{
+      /*initial file creator
+		JAXBContext jc = JAXBContext.newInstance("org.w3._1999a.xhtml");
+        Marshaller marshaller = jc.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT ,new Boolean(true));
+		UserType newUser = new UserType();
+		newUser.setUsername("testuser1");
+		newUser.setPassword("testpassword1");
+		UsersType users= new UsersType();
+		users.getUser().add(newUser);
+		marshaller.marshal(users,new FileOutputStream("users.xml"));
+		*/
+		//getUsersTasks("testuser1");
+		//createUser ("testu","testp");
+		System.out.println(isAuthValid("testu","testp"));
+		System.out.println(isAuthValid("testu","testh"));
 	}
 }

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:Users xmlns:ns2="http://www.w3.org/1999a/xhtml">
+    <user password="testpassword1" username="testuser1"/>
+    <user password="testp" username="testu"/>
+</ns2:Users>
