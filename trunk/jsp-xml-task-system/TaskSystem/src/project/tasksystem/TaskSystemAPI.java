@@ -23,7 +23,7 @@ public class TaskSystemAPI {
 	 * @param username
 	 * @returns a list of task objects that belong to the username
 	 */
-	public List<TaskType> getUsersTasks(String username){
+	public static List<TaskType> getUsersTasks(String username){
 		try{
         JAXBContext jc = JAXBContext.newInstance("org.w3._1999.xhtml");
 
@@ -50,23 +50,23 @@ public class TaskSystemAPI {
 	 * @param username
 	 * @param taskList
 	 */
-	public void setUsersTasks(String username,List<TaskType> taskList){
+	public static void setUsersTasks(String username,List<TaskType> taskList){
 		try{
         JAXBContext jaxbContext = JAXBContext.newInstance("org.w3._1999.xhtml");
         Marshaller marshaller = jaxbContext.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT , new Boolean(true));
 		TasksType tasks = new TasksType();
 		tasks.getTask().addAll(taskList);
-        marshaller.marshal(tasks,new FileOutputStream("tasksjaxb.xml"));
+        marshaller.marshal(tasks,new FileOutputStream(username+"_tasks.xml"));
 		}catch (Exception e){
 			e.printStackTrace();
 		}
 		
 	}
-	public boolean isAuthValid(String username, String password){
+	public static boolean isAuthValid(String username, String password){
 		return false;
 	}
-	public boolean createUser(String username, String password){
+	public static boolean createUser(String username, String password){
 		//check if user and username_tasks.xml already exists. if not create username_tasks.xml and return true if successful
 		return false;
 	}
