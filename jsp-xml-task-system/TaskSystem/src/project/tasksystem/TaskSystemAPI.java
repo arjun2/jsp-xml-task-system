@@ -7,6 +7,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
+import org.w3._1999.xhtml.ObjectFactory;
 import org.w3._1999.xhtml.TaskType;
 import org.w3._1999.xhtml.TasksType;
 import org.w3._1999a.xhtml.UserType;
@@ -58,6 +59,32 @@ public class TaskSystemAPI {
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT , new Boolean(true));
 		TasksType tasks = new TasksType();
 		tasks.getTask().addAll(taskList);
+        marshaller.marshal(tasks,new FileOutputStream(username+"_tasks.xml"));
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		
+	}
+	/**
+	 * Writes given task objects to the given user's xml file
+	 * @param username
+	 * @param taskList
+	 */
+	public static void setInitialUsersTasks(String username){
+		try{
+        JAXBContext jaxbContext = JAXBContext.newInstance("org.w3._1999.xhtml");
+        Marshaller marshaller = jaxbContext.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT , new Boolean(true));
+        org.w3._1999.xhtml.ObjectFactory objFactory = new org.w3._1999.xhtml.ObjectFactory();
+		TasksType tasks = objFactory.createTasksType();
+		List<TaskType> taskList = tasks.getTask();
+		
+		TaskType task = objFactory.createTaskType();
+		task.setID(1);
+		task.setName("Sample Task");
+		task.setPriority("Low");
+		
+		taskList.add(task);
         marshaller.marshal(tasks,new FileOutputStream(username+"_tasks.xml"));
 		}catch (Exception e){
 			e.printStackTrace();
@@ -116,7 +143,7 @@ public class TaskSystemAPI {
 			userList.add(newUser);
 
 	        marshaller.marshal(users,new FileOutputStream("users.xml"));
-	
+	        setInitialUsersTasks(username);
 	        return true;
 			}catch (Exception e){
 				e.printStackTrace();

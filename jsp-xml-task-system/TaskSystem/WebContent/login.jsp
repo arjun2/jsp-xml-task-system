@@ -9,13 +9,24 @@
 <%
 String username = request.getParameter("user");
 String password = request.getParameter("pass");
-if(TaskSystemAPI.isAuthValid(username,password)){
-	session.setAttribute("user",username);
-	String redirectURL = "tasks.jsp";
-	response.sendRedirect(redirectURL);
+if(request.getParameter("submit").equals("Login")){
+	if(TaskSystemAPI.isAuthValid(username,password)){
+		session.setAttribute("user",username);
+		String redirectURL = "tasks.jsp";
+		response.sendRedirect(redirectURL);
+	}else{
+		String invalidAuthentication ="The authentication credentials are invalid";
+		response.sendRedirect("index.jsp?error="+invalidAuthentication);
+	}
 }else{
-	String invalidAuthentication ="The authentication credentials are invalid";
-	response.sendRedirect("index.jsp?error="+invalidAuthentication);
+	if(TaskSystemAPI.createUser(username,password)){
+		session.setAttribute("user",username);
+		String redirectURL = "tasks.jsp";
+		response.sendRedirect(redirectURL);
+	}else{
+		String regError ="Error with registration";
+		response.sendRedirect("index.jsp?error="+regError);
+	}
 }
 
 
