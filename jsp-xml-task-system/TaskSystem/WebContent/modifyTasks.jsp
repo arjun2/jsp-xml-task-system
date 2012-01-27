@@ -43,7 +43,10 @@ try{
 			tsk.setCompleted(Boolean.parseBoolean(completed));
 			taskList.add(tsk);
 			TaskSystemAPI.setUsersTasks(user,taskList);
-			out.print("0");
+			String newTask = Integer.toString(id[id.length-1] + 1) + "," + 
+			name + "," + priority + "," + dueDate + "," + dependsOn + "," +
+			completed;
+			out.print(newTask);
 		} else {
 			int taskIndex=-1;
 			boolean allowEdit=false;
