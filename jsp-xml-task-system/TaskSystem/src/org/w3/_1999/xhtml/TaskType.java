@@ -15,6 +15,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 
@@ -160,10 +162,15 @@ public class TaskType {
     }
     
     public void setDueDateInString(String date){
+    	try{
     	StringTokenizer st = new StringTokenizer(date,"/");
+    	dueDate = DatatypeFactory.newInstance().newXMLGregorianCalendar();
     	dueDate.setMonth(Integer.parseInt(st.nextToken())-1);
     	dueDate.setDay(Integer.parseInt(st.nextToken()));
     	dueDate.setYear(Integer.parseInt(st.nextToken()));
+    	}catch(Exception e){
+    		e.printStackTrace();
+    	}
     }
     /**
      * Sets the value of the dueDate property.
