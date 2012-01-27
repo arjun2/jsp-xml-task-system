@@ -27,6 +27,9 @@ public class TaskSystemAPI {
 	 * @returns a list of task objects that belong to the username
 	 */
 	public static List<TaskType> getUsersTasks(String username){
+		if(username.equals("")){
+			return null;
+		}
 		try{
         JAXBContext jc = JAXBContext.newInstance("org.w3._1999.xhtml");
 
