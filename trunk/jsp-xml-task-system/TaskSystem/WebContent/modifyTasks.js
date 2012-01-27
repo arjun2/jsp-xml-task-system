@@ -7,6 +7,7 @@ $(document).ready(function() {
 			      document.getElementById("dependsOn").value + "," +
 			      document.getElementById("completed").value;
 		addTask(str);
+		
 	});
 
 	$("#remove").click(function() {
@@ -14,7 +15,7 @@ $(document).ready(function() {
 	});
 	
 	$("#edit").click(function() {
-		var str = "21," + "testuser1," + 
+		var str = "23," + "testuser1," + 
 		  		  document.getElementById("name").value + "," +
 		  		  document.getElementById("priority").value + "," +
 		  		  document.getElementById("dueDate").value + "," + 
@@ -26,7 +27,6 @@ $(document).ready(function() {
 
 function addTask(str) {
 	var params = str.split(",");
-	
 	if(params.length == 6){
 		var url = "modifyTasks.jsp";
 		url+= "?action=ADD";
@@ -34,12 +34,11 @@ function addTask(str) {
 		url+="&PRIORITY=" + params[2] + "&DUE_DATE=" + params[3];
 		url+="&DEPENDS_ON=" + params[4] + "&COMPLETED=FALSE";
 		url+= "&sid=" + Math.random();
-		alert(params[3]);
 		$.get(url, function(result) {
-			alert("task added successfully: " + result);
+			addTaskResult(result);
 		});
 	} else {
-		alert("not all parameters mentioned: " + str);
+		addTaskResult("not all parameters mentioned");
 	}
 }
 
@@ -52,10 +51,10 @@ function removeTask(str) {
 		url+= "&sid=" + Math.random();
 		alert(url);
 		$.get(url, function(result) {
-			alert(result);
+			showResult(result);
 		});
 	} else {
-		alert("Insufficient arguments " + str);
+		showResult("Insufficient arguments " + str);
 	}
 }
 
@@ -68,11 +67,21 @@ function editTask(str) {
 		url+="&PRIORITY=" + params[3] + "&DUE_DATE=" + params[4];
 		url+="&DEPENDS_ON=" + params[5] + "&COMPLETED=" + params[6];
 		url+= "&sid=" + Math.random();
-		alert(url);
 		$.get(url, function(result) {
-			alert(result);
+			showResult(result);
 		});
 	} else {
-		alert("not all parameters mentioned: " + str);
+		showResult("not all parameters mentioned: " + str);
 	}
+}
+
+function showResult(str){
+	if(str.valueOf() != 0)
+		alert("printing " + str);
+	else 
+		alert("result is 0");
+}
+
+function addTaskResult(str){
+	alert(str);
 }
