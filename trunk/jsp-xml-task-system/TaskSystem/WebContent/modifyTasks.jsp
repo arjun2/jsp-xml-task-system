@@ -23,11 +23,11 @@ try{
 	 	String dueDate = (String) request.getParameter("DUE_DATE");
 	 	String dependsOn = (String) request.getParameter("DEPENDS_ON");
 	 	String completed = (String) request.getParameter("COMPLETED");
-		GregorianCalendar c = new GregorianCalendar();
-		DateFormat d = new SimpleDateFormat("mm-dd-yy");;
-		c.setTime(d.parse(dueDate));
-		XMLGregorianCalendar date = 
-			DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+		//GregorianCalendar c = new GregorianCalendar();
+		//DateFormat d = new SimpleDateFormat("mm-dd-yy");;
+		//c.setTime(d.parse(dueDate));
+		//XMLGregorianCalendar date = 
+			//DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
 		if(action.equals("ADD")){
 			TaskType tsk = new TaskType();
 			int[] id = new int[taskList.size()];
@@ -83,7 +83,7 @@ try{
 				TaskType tsk = taskList.get(taskIndex);
 				tsk.setName(name);
 				tsk.setPriority(priority);
-				tsk.setDueDate(date);
+				tsk.setDueDateInString(dueDate);
 				if(dependsOn.length()!=0)
 					tsk.setDependsOn(Integer.parseInt(dependsOn));
 				tsk.setCompleted(t_completed);
