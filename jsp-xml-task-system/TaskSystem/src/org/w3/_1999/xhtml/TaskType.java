@@ -8,6 +8,8 @@
 
 package org.w3._1999.xhtml;
 
+import java.util.StringTokenizer;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -152,6 +154,17 @@ public class TaskType {
         return dueDate;
     }
 
+    public String getDueDateInString(){
+    	
+    	return dueDate.getMonth()+"/"+dueDate.getDay()+"/"+dueDate.getYear();
+    }
+    
+    public void setDueDateInString(String date){
+    	StringTokenizer st = new StringTokenizer(date,"/");
+    	dueDate.setMonth(Integer.parseInt(st.nextToken()));
+    	dueDate.setDay(Integer.parseInt(st.nextToken()));
+    	dueDate.setYear(Integer.parseInt(st.nextToken()));
+    }
     /**
      * Sets the value of the dueDate property.
      * 
