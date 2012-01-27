@@ -39,13 +39,18 @@ try{
 			tsk.setPriority(priority);
 			//tsk.setDueDate(date);
 			tsk.setDueDateInString(dueDate);
-			if(dependsOn.length()!=0)
+			String dependsOnName="";
+			if(dependsOn.length()!=0){
 				tsk.setDependsOn(Integer.parseInt(dependsOn));
+				for(int i=0; i<taskList.size() ; i++)
+					if(taskList.get(i).getID()==Integer.parseInt(dependsOn))
+						dependsOnName = taskList.get(i).getName();
+			}
 			tsk.setCompleted(Boolean.parseBoolean(completed));
 			taskList.add(tsk);
 			TaskSystemAPI.setUsersTasks(user,taskList);
 			String newTask = Integer.toString(id[id.length-1] + 1) + "," + 
-			name + "," + priority + "," + dueDate + "," + dependsOn + "," +
+			name + "," + priority + "," + dueDate + "," + dependsOnName + "," +
 			completed;
 			out.print(newTask);
 		} else {
@@ -79,7 +84,7 @@ try{
 				allowEdit=true;
 			
 			if(allowEdit){
-				System.out.println("Allow edit");
+				//System.out.println("Allow edit");
 				TaskType tsk = taskList.get(taskIndex);
 				tsk.setName(name);
 				tsk.setPriority(priority);
