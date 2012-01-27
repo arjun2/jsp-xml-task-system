@@ -37,7 +37,8 @@ try{
 			tsk.setID(id[id.length-1] + 1);
 			tsk.setName(name); 
 			tsk.setPriority(priority);
-			tsk.setDueDate(date);
+			//tsk.setDueDate(date);
+			tsk.setDueDateInString(dueDate);
 			if(dependsOn.length()!=0)
 				tsk.setDependsOn(Integer.parseInt(dependsOn));
 			tsk.setCompleted(Boolean.parseBoolean(completed));
