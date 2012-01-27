@@ -161,7 +161,7 @@ public class TaskType {
     
     public void setDueDateInString(String date){
     	StringTokenizer st = new StringTokenizer(date,"/");
-    	dueDate.setMonth(Integer.parseInt(st.nextToken()));
+    	dueDate.setMonth(Integer.parseInt(st.nextToken())-1);
     	dueDate.setDay(Integer.parseInt(st.nextToken()));
     	dueDate.setYear(Integer.parseInt(st.nextToken()));
     }
