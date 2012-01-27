@@ -3,4 +3,5 @@
     pageEncoding="ISO-8859-1"%>
 <%
 String username = (String) session.getAttribute("user");
+
 %>

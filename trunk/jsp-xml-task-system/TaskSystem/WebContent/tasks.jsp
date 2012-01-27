@@ -4,18 +4,19 @@
 <%@ page import="org.w3._1999.xhtml.TaskType" %>
 <%@ page import="project.tasksystem.TaskSystemAPI" %>
 
+<%@ include file="header.jsp" %>
+<%
+if (username.equals("")){
+	response.sendRedirect("index.jsp");
+}
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<%
-//this should go in header under session variables
-String username="testuser1";
-String password="testpassword";
 
-%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Advanced online task system</title>
-<%-- <%@ include file="header.jsp" %> --%>
+
 
 <script type="text/javascript">
 
@@ -42,10 +43,10 @@ function editTextBox(oName)
 </tr>
 <tr style="background-color:#AA5500;">
 	<td>
-		Welcome, XYZ
+		Welcome, <%=username %>
 	</td>
 	<td align="right">
-		<button value="logout" name="logoutbtn" type="button" 
+		<button onClick="window.location='index.jsp'" value="logout" name="logoutbtn" type="button" 
 		style="background-color:transparent;border-style: none;cursor:auto;"><u>Logout</u>
 		</button>
 		
@@ -91,7 +92,10 @@ function editTextBox(oName)
 					Share
 				</td> -->
 			</tr>
-			<%List<TaskType> userTasksList = TaskSystemAPI.getUsersTasks(username); 
+			<%
+			if (!username.equals("")){
+			
+			List<TaskType> userTasksList = TaskSystemAPI.getUsersTasks(username); 
 			for(TaskType t : userTasksList){ %>
 			<tr>
 			<%-- <td>
@@ -125,7 +129,7 @@ function editTextBox(oName)
 				
 			</td>
 			</tr>
-			<%} %>
+			<%} }%>
 			<tr>
 				<td align="center">
 					<button value="Add" name="Addbtn" type="button"
