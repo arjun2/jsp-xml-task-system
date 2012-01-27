@@ -14,7 +14,7 @@ $(document).ready(function() {
 	});
 	
 	$("#edit").click(function() {
-		var str = "10," + "testuser1," + 
+		var str = "21," + "testuser1," + 
 		  		  document.getElementById("name").value + "," +
 		  		  document.getElementById("priority").value + "," +
 		  		  document.getElementById("dueDate").value + "," + 
@@ -34,6 +34,7 @@ function addTask(str) {
 		url+="&PRIORITY=" + params[2] + "&DUE_DATE=" + params[3];
 		url+="&DEPENDS_ON=" + params[4] + "&COMPLETED=FALSE";
 		url+= "&sid=" + Math.random();
+		alert(params[3]);
 		$.get(url, function(result) {
 			alert("task added successfully: " + result);
 		});
