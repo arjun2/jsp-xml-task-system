@@ -19,31 +19,86 @@ session.setAttribute("user","");
 </style>
 
 </head>
-<body style="background-color: #993300">
-<div style="background-color: #FFFF66; font-family: Arial, Helvetica, sans-serif;">
-<p class="auto-style1"><strong>XML Online Task System</strong></p>
-<% if (request.getParameter("error")!=null){ %>
-<p style="color: #FF0000"><%= request.getParameter("error") %></p> <% } %>
-<form name="input" action="login.jsp" method="post">
-	<table style="width: 300px" align="center">
-		<tr>
-			<td style="height: 26px">Username:</td>
-			<td style="height: 26px"> <input type="text" name="user" /></td>
-		</tr>
-		<tr>
-			<td>Password: </td>
-			<td> <input type="password" name="pass" /></td>
-		</tr>
-		<tr>
-			<td>&nbsp;</td>
-			<td> <input type="submit" name="submit" value="Login" />&nbsp;&nbsp;&nbsp;<input type="submit" name="submit" value="Register" /></td>
+<body style="background-color:#523127;font-family: Arial, Helvetica, sans-serif;">
+<table cellpadding="0"  cellspacing="0" width="100%" align="center" style="background-color:white;vertical-align:top;">
+	<tr>
+	<td style="background-color:#F26D20;">
+		<img src="Images/website_logo_XML.png" />	
+	</td>
+	<td style="background-color:#F26D20;">
+	</td>
+</tr>
 
-		</tr>
-
-	</table>
+</table>
 &nbsp;
-</form>
-</div>
+<table align="center" width="50%" cellpadding="0" cellspacing="0">
+	<tr style="background-color:#AA5500;">
+		<td>
+			&nbsp;
+		</td>
+	</tr>
+	<tr>
+		<td align="center">
+			<div style="background-color: #FFFF66;">
+				<table  width="100%">
+					<tr align="center">
+						<td height="5%">
+							<p><strong>Welcome users</strong></p>
+						</td>
+					</tr>
+					
+					<tr>
+						<td align="center">
+						
+							<form name="input" action="login.jsp" method="post">
+								<table style="width: 300px" align="center">
+									<tr>
+										<td style="height: 26px">Username:</td>
+										<td style="height: 26px"> <input type="text" name="user" /></td>
+									</tr>
+									<tr>
+										<td>Password: </td>
+										<td> <input type="password" name="pass" /></td>
+									</tr>
+									<tr>
+											<td align="center" colspan="2">
+												
+												<label style="color:red;">
+												
+												<% if (request.getParameter("error")!=null){ %>
+												<%= request.getParameter("error") %> <% } %>
+												</label>		
+											</td>
+									</tr>
+									<tr>
+										<td>&nbsp;</td>
+										<td> <input type="submit" name="submit" value="Login" />&nbsp;&nbsp;&nbsp;<input type="submit" name="submit" value="Register" /></td>
+							
+									</tr>
+							
+								</table>
+									
+							</form>
+						
+						
+						</td>
+					</tr>
+					
+				</table>
+				
+			</div>
+		
+		</td>
+	</tr>
+	<tr style="background-color:#AA5500;">
+		<td>
+			&nbsp;
+		</td>
+	</tr>
+
+
+</table>
+
 
 </body>
 </html>
