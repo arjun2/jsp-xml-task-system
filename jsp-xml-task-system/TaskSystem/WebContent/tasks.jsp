@@ -118,7 +118,7 @@ $(document).ready(function(){
 </tr>
 <tr>
 	<td colspan="3">
-	<% if(!username.equals(""))
+	<% if(!username.equals("") && username != null)
 	{ %>
 		<table width="100%" border="1" style="border-width:2px;" id="tblData">
 			<tr>	
