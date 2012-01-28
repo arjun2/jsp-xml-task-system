@@ -187,7 +187,12 @@ $(document).ready(function(){
 				 %>
 			</td>
 			<td>
-				<%= t.isCompleted()	 %>
+			
+				<%  if(t.isCompleted()){	 %>
+				Completed
+				<%}else{ %>
+				Incomplete 
+				<%} %>
 			</td>
 			
 			</tr>
