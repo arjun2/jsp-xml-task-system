@@ -1,7 +1,3 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <ns2:Users xmlns:ns2="http://www.w3.org/1999a/xhtml">
-    <user password="testpassword1" username="testuser1"/>
-    <user password="user4" username="user4"/>
-    <user password="user5" username="user6"/>
-    <user password="arjun1" username="arjun"/>
 </ns2:Users>
