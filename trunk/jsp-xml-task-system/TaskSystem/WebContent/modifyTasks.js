@@ -83,5 +83,47 @@ function showResult(str){
 }
 
 function addTaskResult(str){
-	alert(str);
+	var oVals=str.split(',');
+	//var oRow="<tr><td><button>Edit</button></td></tr>";
+	var oTempTable=document.getElementById('tblData');
+	
+	var oRowCount=oTempTable.rows.length;
+	
+	var oRow=oTempTable.insertRow(oRowCount-1);
+	var oCell1=oRow.insertCell(0);
+	var oCell2=oRow.insertCell(1);
+	var oCell3=oRow.insertCell(2);
+	var oCell4=oRow.insertCell(3);
+	var oCell5=oRow.insertCell(4);
+	var oCell6=oRow.insertCell(5);
+	
+	 var element1=document.createElement("input");
+	 element1.type="button";
+	 element1.value="Edit";
+	 element1.className="buttonClass";
+	 
+	 var element2=document.createElement("input");
+	 element2.type="button";
+	 element2.value="Delete";
+	 element2.className="buttonClass";
+	 
+	 oCell1.align="center";
+	 oCell1.appendChild(element1);
+	 oCell1.appendChild(element2);
+	 
+	 
+	 
+	oCell2.innerHTML=oVals[1];	 
+	oCell3.innerHTML=oVals[3];
+	oCell4.innerHTML=oVals[2];
+	oCell5.innerHTML=oVals[4];
+	oCell6.innerHTML=oVals[5].toLowerCase();
+	
+	document.getElementById('txtDate').value="";
+	document.getElementById('txtBoxName').value="";
+	document.getElementById('drpPriority').selectedIndex=0;
+	document.getElementById('drpDependsOn').selectedIndex=0;
+	document.getElementById('drpStatus').selectedIndex=0;
+	//alert(str);
+	document.getElementById('txtBoxName').focus();
 }
