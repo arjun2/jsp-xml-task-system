@@ -165,7 +165,7 @@ public class TaskType {
     	try{
     	StringTokenizer st = new StringTokenizer(date,"/");
     	dueDate = DatatypeFactory.newInstance().newXMLGregorianCalendar();
-    	dueDate.setMonth(Integer.parseInt(st.nextToken())-1);
+    	dueDate.setMonth(Integer.parseInt(st.nextToken()));
     	dueDate.setDay(Integer.parseInt(st.nextToken()));
     	dueDate.setYear(Integer.parseInt(st.nextToken()));
     	}catch(Exception e){

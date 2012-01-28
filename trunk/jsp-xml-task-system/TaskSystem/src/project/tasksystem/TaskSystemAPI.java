@@ -86,6 +86,8 @@ public class TaskSystemAPI {
 		task.setID(1);
 		task.setName("Sample Task");
 		task.setPriority("Low");
+		task.setDueDateInString("01/01/2020");
+		task.setCompleted(false);
 		
 		taskList.add(task);
         marshaller.marshal(tasks,new FileOutputStream(username+"_tasks.xml"));
