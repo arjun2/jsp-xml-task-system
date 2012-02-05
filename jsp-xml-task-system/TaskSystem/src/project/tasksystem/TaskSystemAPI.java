@@ -1,6 +1,9 @@
 package project.tasksystem;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.util.List;
 
 import javax.xml.bind.JAXBContext;
@@ -154,6 +157,24 @@ public class TaskSystemAPI {
 				e.printStackTrace();
 				return false;
 			}
+	}
+	public static String getXML(String username){
+		try{
+		   BufferedReader reader = new BufferedReader( new FileReader (username+"_tasks.xml"));
+		    String line  = null;
+		    StringBuilder stringBuilder = new StringBuilder();
+		    String ls = System.getProperty("line.separator");
+		    while( ( line = reader.readLine() ) != null ) {
+		        stringBuilder.append( line );
+		        stringBuilder.append( ls );
+		    }
+		    return stringBuilder.toString();
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+
+		
 	}
 	public static void main(String[] args) throws Exception{
       /*initial file creator
