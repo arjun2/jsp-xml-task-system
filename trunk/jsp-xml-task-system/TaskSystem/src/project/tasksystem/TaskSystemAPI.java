@@ -236,7 +236,7 @@ public class TaskSystemAPI {
 			taskdate=taskdate.replaceAll("[^A-Za-z0-9/]", "");
 	        Processor proc = new Processor(false);
 	        XQueryCompiler comp = proc.newXQueryCompiler();
-	        XQueryExecutable exp = comp.compile("doc(\" "+username+"_tasks.xml\")//task[@date=\""+taskdate +"\"]");
+	        XQueryExecutable exp = comp.compile("doc(\" "+username+"_tasks.xml\")//task[@dueDate=\""+taskdate +"\"]");
 	        ByteArrayOutputStream sos = new ByteArrayOutputStream();
 	        Serializer out = proc.newSerializer(sos);
 	        out.setOutputProperty(Serializer.Property.METHOD, "xml");
