@@ -22,7 +22,9 @@ if (username == null|| username.equals("")){
 </style>
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script> 
+<script type="text/javascript" src="jquery.tablesorter.min.js"></script>
+  
  <script src="modifyTasks.js" type="text/javascript"></script>
 <script>
 
@@ -57,20 +59,57 @@ $(document).ready(function(){
 		oSendMsg+= $('#drpStatus option:selected').val();
 		
 		//alert(oSendMsg+= $('#txtDate').val() );
+		
 		addTask(oSendMsg);
-		
+		document.getElementById('txtDate').value="";
+		document.getElementById('txtBoxName').value="";
+		document.getElementById('drpPriority').selectedIndex=0;
+		document.getElementById('drpDependsOn').selectedIndex=0;
+		document.getElementById('drpStatus').selectedIndex=0;
+		document.getElementById('txtBoxName').focus();
 		
 		
 	});
-	$('#Addbtn').live('click',function(){
+	
+// 	$('#Addbtn').live('click',function(){
 		
-		var oTempObject=($('this').parent().parent().clone());
-		$('tr:last').after(oTempObject);			
+// 		var oTempObject=($('this').parent().parent().clone());
+// 		$('tr:last').after(oTempObject);			
+// 	});
+
+
+$('#EditBtn').live('click',function()
+{
 	});
+	
+	$('#tblData').tablesorter( {sortList: [[0,0], [1,0]]} );
 });
 
 
+function deleteTasks()
+{
+	alert('Delete');
+	var oDeleteMsg= $('#lblUserName').text() + ','+  $('#lblID').text();
+	removeTask(oDeleteMsg);
+	}
+	
+function editTasks(id)
+{
+	alert('Edit');
+	var oTempTable=document.getElementById('tblData');
+	//var oRow=oTempTable.get
+}
 
+function updateTasks()
+{
+	var oEditMsg= $('#lblUserName').text() + ','+  $('#lblID').text();
+	oEditMsg += ',' + $('#txtBoxName').val() + ',';
+	oEditMsg+=$('#drpPriority option:selected').text() + ',';
+	oEditMsg+= $('#txtDate').val() + ',';
+	editTask(oEditMsg);
+	}
+	
+	
 	
 </script>
 </head>
@@ -121,35 +160,38 @@ $(document).ready(function(){
 	<% if(!username.equals("") && username != null)
 	{ %>
 		<table width="100%" border="1" style="border-width:2px;" id="tblData">
+			<thead>
 			<tr>	
 				<!-- <td>
 					ID
 				</td> -->
-				<td>
+				<th>
 					Actions
-				</td>
-				<td>
+				</th>
+				<th>
 					Task Name
-				</td>
-				<td>
+				</th>
+				<th>
 					Date
-				</td>
-				<td>
+				</th>
+				<th>
 					Priority
-				</td>
-				<td>
+				</th>
+				<th>
 					Depends On
-				</td>
-				<td>
+				</th>
+				<th>
 					Status
-				</td>
+				</th>
 				<!-- <td>
 					Share
 				</td> -->
 			</tr>
+			</thead>
 			<%
 			List<TaskType> userTasksList = TaskSystemAPI.getUsersTasks(username); 
 			for(TaskType t : userTasksList){ %>
+			<tbody>
 			<tr>
 			<%-- <td>
 				 
@@ -158,16 +200,13 @@ $(document).ready(function(){
 				<table>
 					<tr>
 						<td>
-							<button value="Edit" name="Editbtn" type="button" 
+							<button value="Edit" name="Editbtn" type="button" onclick="editTasks()"
 							style="background-color:transparent;border-style: none;cursor:auto;">
 							<u>Edit</u>
 						</button>
 						</td>
 						<td>
-							<button value="Delete" name="Deletebtn" type="button" 
-							style="background-color:transparent;border-style: none;cursor:auto;">
-							<u>Delete</u>
-						</button>
+							<input type="button" name="Delete" onclick="deleteTasks()" class="buttonClass" value="Delete" />
 						</td>
 						
 					</tr>
@@ -235,7 +274,9 @@ $(document).ready(function(){
 					
 				</td>
 			</tr>
+			</tbody>
 		</table>
+		
 		<%} %>
 	</td>
 </tr>
