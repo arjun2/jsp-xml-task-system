@@ -203,14 +203,14 @@ public class TaskSystemAPI {
 		
 	}
 	/**
-	 * returns xquery results of a task name
+	 * returns xquery results of a search string. Currently checks the match for name and date
 	 */
-	public static String searchByTaskName(String username, String taskname){
+	public static String searchForTasks(String username, String searchString){
 		try{
-			taskname=taskname.replaceAll("[^A-Za-z0-9]", "");
+			searchString=searchString.replaceAll("[^A-Za-z0-9/]", "");
 	        Processor proc = new Processor(false);
 	        XQueryCompiler comp = proc.newXQueryCompiler();
-	        XQueryExecutable exp = comp.compile("doc(\" "+username+"_tasks.xml\")//task[@name=\""+taskname +"\"]");
+	        XQueryExecutable exp = comp.compile("doc(\""+username+"_tasks.xml\")//task[@name=\""+searchString +"\" or @dueDate=\""+searchString +"\"]");
 	        ByteArrayOutputStream sos = new ByteArrayOutputStream();
 	        Serializer out = proc.newSerializer(sos);
 	        out.setOutputProperty(Serializer.Property.METHOD, "xml");
@@ -225,30 +225,7 @@ public class TaskSystemAPI {
 
 		
 	}
-	/**
-	 * returns xquery results of a task date
-	 * @param username
-	 * @param taskdate
-	 * @return
-	 */
-	public static String searchByTaskDate(String username, String taskdate){
-		try{
-			taskdate=taskdate.replaceAll("[^A-Za-z0-9/]", "");
-	        Processor proc = new Processor(false);
-	        XQueryCompiler comp = proc.newXQueryCompiler();
-	        XQueryExecutable exp = comp.compile("doc(\" "+username+"_tasks.xml\")//task[@dueDate=\""+taskdate +"\"]");
-	        ByteArrayOutputStream sos = new ByteArrayOutputStream();
-	        Serializer out = proc.newSerializer(sos);
-	        out.setOutputProperty(Serializer.Property.METHOD, "xml");
-	        out.setOutputProperty(Serializer.Property.INDENT, "yes");
-	        out.setOutputProperty(Serializer.Property.OMIT_XML_DECLARATION, "yes");
-	        exp.load().run(out);
-	        return sos.toString();
-		}catch(Exception e){
-			e.printStackTrace();
-			return null;
-		}
-	}
+
 	/*
 	 * returns default xsl transformed version of the input xml
 	 */
@@ -333,7 +310,7 @@ public class TaskSystemAPI {
 		*/
 		//getUsersTasks("testuser1");
 		//createUser ("testu","testp");
-		System.out.println(searchByTaskName("user4","test"));
+		System.out.println(searchForTasks("user4","test"));
 		System.out.println(isAuthValid("testu","testp"));
 		System.out.println(isAuthValid("testu","testh"));
 	}
