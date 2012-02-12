@@ -207,8 +207,7 @@ public class TaskSystemAPI {
 	 */
 	public static String searchByTaskName(String username, String taskname){
 		try{
-			taskname="test";
-			taskname.replaceAll("[^A-Za-z0-9]", "");
+			taskname=taskname.replaceAll("[^A-Za-z0-9]", "");
 	        Processor proc = new Processor(false);
 	        XQueryCompiler comp = proc.newXQueryCompiler();
 	        XQueryExecutable exp = comp.compile("doc(\" "+username+"_tasks.xml\")//task[@name=\""+taskname +"\"]");
