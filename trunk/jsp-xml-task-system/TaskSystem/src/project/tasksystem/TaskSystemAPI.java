@@ -233,21 +233,21 @@ public class TaskSystemAPI {
 	 */
 	public static String searchByTaskDate(String username, String taskdate){
 		try{
-		   BufferedReader reader = new BufferedReader( new FileReader (username+"_tasks.xml"));
-		    String line  = null;
-		    StringBuilder stringBuilder = new StringBuilder();
-		    String ls = System.getProperty("line.separator");
-		    while( ( line = reader.readLine() ) != null ) {
-		        stringBuilder.append( line );
-		        stringBuilder.append( ls );
-		    }
-		    return stringBuilder.toString();
+			taskdate=taskdate.replaceAll("[^A-Za-z0-9/]", "");
+	        Processor proc = new Processor(false);
+	        XQueryCompiler comp = proc.newXQueryCompiler();
+	        XQueryExecutable exp = comp.compile("doc(\" "+username+"_tasks.xml\")//task[@date=\""+taskdate +"\"]");
+	        ByteArrayOutputStream sos = new ByteArrayOutputStream();
+	        Serializer out = proc.newSerializer(sos);
+	        out.setOutputProperty(Serializer.Property.METHOD, "xml");
+	        out.setOutputProperty(Serializer.Property.INDENT, "yes");
+	        out.setOutputProperty(Serializer.Property.OMIT_XML_DECLARATION, "yes");
+	        exp.load().run(out);
+	        return sos.toString();
 		}catch(Exception e){
 			e.printStackTrace();
 			return null;
 		}
-
-		
 	}
 	/*
 	 * returns default xsl transformed version of the input xml
