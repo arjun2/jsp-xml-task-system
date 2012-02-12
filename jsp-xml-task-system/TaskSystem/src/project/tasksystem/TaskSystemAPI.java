@@ -28,6 +28,10 @@ import javax.xml.xquery.XQExpression;
 import javax.xml.xquery.XQResultSequence;
 import javax.xml.xquery.XQSequence;
 
+import net.sf.saxon.s9api.Processor;
+import net.sf.saxon.s9api.Serializer;
+import net.sf.saxon.s9api.XQueryCompiler;
+import net.sf.saxon.s9api.XQueryExecutable;
 import net.xqj.sedna.SednaXQDataSource;
 
 import org.w3._1999.xhtml.ObjectFactory;
@@ -203,22 +207,18 @@ public class TaskSystemAPI {
 	 */
 	public static String searchByTaskName(String username, String taskname){
 		try{
-		 /*  BufferedReader reader = new BufferedReader( new FileReader (username+"_tasks.xml"));
-		    String line  = null;
-		    StringBuilder stringBuilder = new StringBuilder();
-		    String ls = System.getProperty("line.separator");
-		    while( ( line = reader.readLine() ) != null ) {
-		        stringBuilder.append( line );
-		        stringBuilder.append( ls );
-		    }
-		    String temp= stringBuilder.toString();
-		    */
-		    XQDataSource xqs = new SednaXQDataSource();
-		    XQConnection conn = xqs.getConnection();
-		    XQExpression xqe = conn.createExpression();
-		    XQResultSequence xqrs =xqe.executeQuery("for $x in doc('"+username+"'_tasks.xml')/tasks return {$x}");
-		    return xqrs.toString();
-
+			taskname="test";
+			taskname.replaceAll("[^A-Za-z0-9]", "");
+	        Processor proc = new Processor(false);
+	        XQueryCompiler comp = proc.newXQueryCompiler();
+	        XQueryExecutable exp = comp.compile("doc(\" "+username+"_tasks.xml\")//task[@name=\""+taskname +"\"]");
+	        ByteArrayOutputStream sos = new ByteArrayOutputStream();
+	        Serializer out = proc.newSerializer(sos);
+	        out.setOutputProperty(Serializer.Property.METHOD, "xml");
+	        out.setOutputProperty(Serializer.Property.INDENT, "yes");
+	        out.setOutputProperty(Serializer.Property.OMIT_XML_DECLARATION, "yes");
+	        exp.load().run(out);
+	        return sos.toString();
 		}catch(Exception e){
 			e.printStackTrace();
 			return null;
