@@ -78,8 +78,9 @@ $(document).ready(function(){
 // 	});
 
 
-$('#EditBtn').live('click',function()
+$('#Editbtn').live('click',function()
 {
+	alert($(this).closest('tr'));
 	});
 	
 	$('#tblData').tablesorter( {sortList: [[0,0], [1,0]]} );
@@ -97,6 +98,7 @@ function editTasks(id)
 {
 	alert('Edit');
 	var oTempTable=document.getElementById('tblData');
+	alert($(this).parent().id);
 	//var oRow=oTempTable.get
 }
 
