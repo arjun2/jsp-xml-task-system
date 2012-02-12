@@ -122,8 +122,18 @@ try{
 			 } else
 				 out.print("No task found");
 		 }
- 	} else 
-		 out.print(action);
+ 	} else if(action.equals("TASKLIST")){
+ 		String taskIdValue="";
+ 		for(int i=0; i<taskList.size() ; i++)
+ 			if(!taskList.get(i).isCompleted()){
+ 				if(taskIdValue.length()!=0)
+ 					taskIdValue+=",";
+ 				taskIdValue+=taskList.get(i).getID() + ":" + 
+ 							 taskList.get(i).getName();
+ 			}
+ 		out.print(action);
+ 	} else
+		out.print(action);
 } catch (Exception e){
 	e.printStackTrace();
 }
