@@ -60,6 +60,7 @@ function removeTask(str) {
 }
 
 function editTask(str) {
+	alert(str);
 	var params = str.split(",");
 	if(params.length == 7){
 		var url = "modifyTasks.jsp";
