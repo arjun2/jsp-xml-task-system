@@ -33,6 +33,8 @@ try{
 			int[] id = new int[taskList.size()];
 			for(int i=0; i<taskList.size() ; i++)
 				id[i] = taskList.get(i).getID();
+				
+			
 			Arrays.sort(id);
 			tsk.setID(id[id.length-1] + 1);
 			tsk.setName(name); 
@@ -58,21 +60,28 @@ try{
 			boolean allowEdit=false;
 			int id = Integer.parseInt((String) request.getParameter("ID"));
 			Boolean t_completed = Boolean.parseBoolean(completed);
-			for(int i=0; i<taskList.size() ; i++)
+			for(int i=0; i<taskList.size() ; i++){
+				//System.out.println("task name " + taskList.get(i).getName());
+				//System.out.println("task ID " + taskList.get(i).getID());
 				if( id==taskList.get(i).getID()){
 					taskIndex=i;
-					break;
+					//break;
 				}
+			}
 			if(t_completed.booleanValue()){
 				//Integer dependsOntaskId = 
 				//					taskList.get(taskIndex).getDependsOn();
 				if(dependsOn.length() != 0){
-					System.out.println(""+Integer.parseInt(dependsOn));
-					System.out.println("test completed " + 
-					  taskList.get(Integer.parseInt(dependsOn)).isCompleted());
-					System.out.println(""+
-							taskList.get(Integer.parseInt(dependsOn)).getName());
-					if( taskList.get(Integer.parseInt(dependsOn)).isCompleted() )
+					int _t=Integer.parseInt(dependsOn);
+					int dependsOnIndex=-1;
+					for(int i=0; i<taskList.size() ; i++)
+						if(_t==taskList.get(i).getID())
+							dependsOnIndex=i;
+					System.out.println("dependsOn: "+dependsOn);
+					System.out.println("test completed " + taskList.get(dependsOnIndex).isCompleted()); 
+					System.out.println(""+ taskList.get(dependsOnIndex).getName());
+							
+					if( taskList.get(dependsOnIndex).isCompleted() )
 						allowEdit=true;
 					else
 						out.print("This task cannot be completed as " + 
