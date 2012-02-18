@@ -36,6 +36,7 @@ function addTask(str) {
 		url+="&DEPENDS_ON=" + params[4] + "&COMPLETED=FALSE";
 		url+= "&sid=" + Math.random();
 		$.get(url, function(result) {
+			alert(result);
 			addTaskResult(result);
 		});
 	} else {
@@ -64,8 +65,8 @@ function editTask(str) {
 	var params = str.split(",");
 	if(params.length == 7){
 		var url = "modifyTasks.jsp";
-		url+= "?action=EDIT" + "&ID=" + params[1];
-		url+="&USER=" + params[0] + "&NAME=" + params[2]; 
+		url+= "?action=EDIT" + "&ID=" + params[0];
+		url+="&USER=" + params[1] + "&NAME=" + params[2]; 
 		url+="&PRIORITY=" + params[3] + "&DUE_DATE=" + params[4];
 		url+="&DEPENDS_ON=" + params[5] + "&COMPLETED=" + params[6];
 		url+= "&sid=" + Math.random();
@@ -81,7 +82,11 @@ function showResult(str){
 	if(str.valueOf() != 0)
 		alert("printing " + str);
 	else 
-		alert("result is 0");
+		{
+			alert("result is 0");
+			
+		}
+		
 }
 
 function deleteResult(str,id)
@@ -107,7 +112,7 @@ function deleteResult(str,id)
 }
 
 function addTaskResult(str){
-	
+	alert(str);
 	var oVals=str.split(',');
 	//var oRow="<tr><td><button>Edit</button></td></tr>";
 	var oTempTable=document.getElementById('tblData');
@@ -141,17 +146,20 @@ function addTaskResult(str){
 	oCell3.innerHTML=oVals[3];
 	oCell4.innerHTML=oVals[2];
 	oCell5.innerHTML=oVals[4];
-	oCell6.innerHTML=oVals[5].toLowerCase();
+	if(oVals[5] == "false")
+		oCell6.innerHTML="Incomplete";
+	else
+		oCell6.innerHTML="Complete";
 	
 	
 	 element2.onclick=function() {
 		 
-		 deleteTasks();
+		 deleteTasks(oVals[0]);
 	 };
 	
 	 element1.onclick=function() {
 		 
-		 editTasks();
+		 editTasks(oRowCount);
 	 };
 	
 	 oCell1.align="center";
