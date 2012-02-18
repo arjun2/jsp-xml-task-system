@@ -372,7 +372,7 @@ function checker()
 </tr>
 <tr>
 	<td colspan="3">
-	<% if(!username.equals("") && username != null)
+	<% if(username != null && !username.equals(""))
 	{ %>
 		<table width="100%" border="1" style="border-width:2px;" id="tblData">
 			<thead>
