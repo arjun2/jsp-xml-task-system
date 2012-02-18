@@ -67,11 +67,11 @@ try{
 				//Integer dependsOntaskId = 
 				//					taskList.get(taskIndex).getDependsOn();
 				if(dependsOn.length() != 0){
-					//System.out.println(""+Integer.parseInt(dependsOn));
-					//System.out.println("test completed " + 
-					 // taskList.get(Integer.parseInt(dependsOn)).isCompleted());
-					//System.out.println(""+
-					//		taskList.get(Integer.parseInt(dependsOn)).getName());
+					System.out.println(""+Integer.parseInt(dependsOn));
+					System.out.println("test completed " + 
+					  taskList.get(Integer.parseInt(dependsOn)).isCompleted());
+					System.out.println(""+
+							taskList.get(Integer.parseInt(dependsOn)).getName());
 					if( taskList.get(Integer.parseInt(dependsOn)).isCompleted() )
 						allowEdit=true;
 					else
@@ -84,7 +84,7 @@ try{
 				allowEdit=true;
 			
 			if(allowEdit){
-				//System.out.println("Allow edit");
+				System.out.println("Allow edit");
 				TaskType tsk = taskList.get(taskIndex);
 				tsk.setName(name);
 				tsk.setPriority(priority);
