@@ -90,11 +90,13 @@ $('#Editbtn').live('click',function()
 });
 
 
-function deleteTasks()
+function deleteTasks(oID)
 {
 	alert('Delete');
-	var oDeleteMsg= $('#lblUserName').text() + ','+  $('#lblID').text();
-	removeTask(oDeleteMsg);
+	alert(oID);
+	var oDeleteMsg= $('#lblUserName').text() + ','+  oID;
+	alert(oDeleteMsg);
+	//removeTask(oDeleteMsg);
 }
 	
 function updateTasks()
@@ -126,7 +128,7 @@ function editTasks(id)
 	alert('Edit');
 	var oTempTable=document.getElementById('tblData');
 	var oRowLength=oTempTable.rows.length;
-	
+	alert(id);
 	
 	
 	
@@ -307,6 +309,8 @@ function updateTasks(oRowInx)
 	  
 	  oCell=oTRow.cells[4];
 	  var oDepends=oCell.childNodes[0].value;
+	  if(oDepends=="")
+		  oDepends="0";
 	  
 	  oCell=oTRow.cells[5];
 	  var oStatus=oCell.childNodes[0].value;
@@ -418,11 +422,11 @@ function checker()
 						<td>
 							<button value="Edit" name="Editbtn" type="button" onclick="editTasks(<%= i %>)"
 							style="background-color:transparent;border-style: none;cursor:auto;">
-							<u>Edit</u>
-						</button>
+								<u>Edit</u>
+							</button>
 						</td>
 						<td>
-							<input type="button" name="Delete" onclick="deleteTasks()" class="buttonClass" value="Delete" />
+							<input type="button" name="Delete" onclick="deleteTasks(<%=t.getID() %>)" class="buttonClass" value="Delete" />
 						</td>
 						
 					</tr>
