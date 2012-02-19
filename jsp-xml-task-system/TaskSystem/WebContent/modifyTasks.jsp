@@ -94,12 +94,15 @@ try{
 			
 			if(allowEdit){
 				System.out.println("Allow edit");
+				System.out.println(taskIndex + " " + name + " " + dueDate + " " + dependsOn);
 				TaskType tsk = taskList.get(taskIndex);
 				tsk.setName(name);
 				tsk.setPriority(priority);
 				tsk.setDueDateInString(dueDate);
 				if(dependsOn.length()!=0)
 					tsk.setDependsOn(Integer.parseInt(dependsOn));
+				else
+					tsk.setDependsOn(0);
 				tsk.setCompleted(t_completed);
 				taskList.remove(taskIndex);
 				taskList.add(tsk);
