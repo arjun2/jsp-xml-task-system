@@ -18,19 +18,22 @@ if (username == null|| username.equals("")){
 <title>Advanced online task system</title>
 <%-- <%@ include file="header.jsp" %> --%>
 <style>
-.buttonClass{background-color:transparent;border-style:none;text-decoration: underline;}
-.DateClass{}
+
 </style>
+<link href="style.css" rel="stylesheet" type="text/css" />
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script> 
-<script type="text/javascript" src="jquery.tablesorter.min.js"></script>
-  
+<script type="text/javascript" src="jquery.tablesorter.js"></script>
+
+  <script type="text/javascript" src="jquery.tablesorter.staticrow.min.js"></script>
  <script src="modifyTasks.js" type="text/javascript"></script>
 <script>
 
 $(document).ready(function(){
-	
+	//$('#tblData').tablesorter();
+	 //$("#tblData").tablesorter(); 
+	 //$('#tblData').tablesorter({ widgets: ['zebra','staticRow'] })
 	$('#txtDate').datepicker({minDate: '+1d'});
 	$('#txtBoxName').focus(function(){
 		
@@ -40,14 +43,14 @@ $(document).ready(function(){
 		if($('#txtBoxName').val() == '')
 			$('#txtBoxName').val('Enter Task name');
 	});
-   $('#txtSearch').focus(function(){
+//    $('#txtSearch').focus(function(){
 		
-		$('#txtSearch').val('');
-	});
-	$('#txtSearch').blur(function(){
+// 		$('#txtSearch').val('');
+// 	});
+// 	$('#txtSearch').blur(function(){
 		
-		$('#txtSearch').val('Enter Task name');
-	});
+// 		$('#txtSearch').val('Enter Task name');
+// 	});
 	$('#Addbtn').click(function(){
 		
 		var oSendMsg= $('#lblUserName').text() + ',' + $('#txtBoxName').val() + ',';
@@ -62,14 +65,24 @@ $(document).ready(function(){
 		
 		//alert(oSendMsg+= $('#txtDate').val() );
 		
-		addTask(oSendMsg);
-		document.getElementById('txtDate').value="";
-		document.getElementById('txtBoxName').value="";
-		document.getElementById('drpPriority').selectedIndex=0;
-		document.getElementById('drpDependsOn').selectedIndex=0;
-		document.getElementById('drpStatus').selectedIndex=0;
-		document.getElementById('txtBoxName').focus();
+		var oCheck=$('#txtDate').val();
+		if( $('#txtBoxName').val() != "Enter a Task name")
+			if(oCheck!="")
+			{
 		
+				addTask(oSendMsg);
+				document.getElementById('txtDate').value="";
+				document.getElementById('txtBoxName').value="";
+				document.getElementById('drpPriority').selectedIndex=0;
+				document.getElementById('drpDependsOn').selectedIndex=0;
+				document.getElementById('drpStatus').selectedIndex=0;
+				document.getElementById('txtBoxName').focus();
+			}
+		else
+			{
+			
+				alert('Please provide all details of a task');
+			}
 		
 	});
 	
@@ -86,8 +99,36 @@ $('#Editbtn').live('click',function()
 	alert($(this).closest('tr'));
 	});
 	
-	$('#tblData').tablesorter( {sortList: [[0,0], [1,0]]} );
+	
 });
+
+
+
+$.tablesorter.addParser({ 
+    // set a unique id 
+    id: 'status', 
+    is: function(s) { 
+        // return false so this parser is not auto detected 
+        return false; 
+    }, 
+    format: function(s) { 
+        // format your data for normalization 
+        return s.toLowerCase().replace(/complete/,1).replace(/inccomplete/,0); 
+    }, 
+    // set type, either numeric or text 
+    type: 'text' 
+}); 
+ 
+$(function() { 
+    $("table").tablesorter({ 
+        headers: { 
+            6: { 
+                sorter:'status' 
+            } 
+        } 
+    }); 
+});              
+
 
 
 function deleteTasks(oID)
@@ -95,8 +136,8 @@ function deleteTasks(oID)
 	alert('Delete');
 	alert(oID);
 	var oDeleteMsg= $('#lblUserName').text() + ','+  oID;
-	alert(oDeleteMsg);
-	//removeTask(oDeleteMsg);
+	//alert(oDeleteMsg);
+	removeTask(oDeleteMsg);
 }
 	
 function updateTasks()
@@ -307,7 +348,7 @@ function editTasks(id,oTaskID)
 
 function updateTasks(orowID)
 {
-	alert(orowID);
+	alert('update');
 	var oTempTable=document.getElementById('tblData');
 	 oTRow=oTempTable.rows[orowID];
 	
@@ -318,11 +359,25 @@ function updateTasks(orowID)
 		
 	  oCell=oTRow.cells[2];
 	  var oDate=oCell.childNodes[0].value;
+	  var onewDate=oDate;
 	  if(oDate.indexOf('-')!=-1)
-	  	oDate=oDate.replace('-','/');
-	  if(oDate.indexOf('-')!=-1)
-		  	oDate=oDate.replace('-','/');
+	  {
+		  if(oDate.indexOf('-')!=-1)
+			  	oDate=oDate.replace('-','/');
+			  if(oDate.indexOf('-')!=-1)
+				  	oDate=oDate.replace('-','/');
+		  
+		  var oDateSplit=oDate.split('/');
+		  var oYear=oDateSplit[0];
+		  var oMonth=oDateSplit[1];
+		  var oDay=oDateSplit[2];
+		   onewDate=oMonth + "/" + oDay + "/" + oYear;
+		   alert(onewDate);
+	  }
+	  
 	
+	 
+	  
 	  oCell=oTRow.cells[3];
 	  var oPriority=oCell.childNodes[0].value;
 	  
@@ -338,7 +393,7 @@ function updateTasks(orowID)
 	var oEditMsg=oID  + ','+  $('#lblUserName').text();
 	oEditMsg += ',' + oTaskName + ',';
 	oEditMsg+=oPriority + ',';
-	oEditMsg+= oDate + ',' + oDepends + ',' + oStatus;
+	oEditMsg+= onewDate + ',' + oDepends + ',' + oStatus;
 	editTask(oEditMsg);
 	}
 
@@ -383,10 +438,17 @@ function checker()
 		<table>
 			<tr>
 				<td align="right">
-					Search:
+					Search by task name:
 				</td>
 				<td>
 					<input type="text" width="200px" id="txtSearch" />
+				</td>
+				
+				<td align="right">
+					Search by task status:
+				</td>
+				<td>
+					<input type="text" width="200px" id="txtSearchStatus" />
 				</td>
 				
 			</tr>
@@ -397,7 +459,7 @@ function checker()
 	<td colspan="3">
 	<% if(username != null && !username.equals(""))
 	{ %>
-		<table width="100%" border="1" style="border-width:2px;" id="tblData">
+		<table width="100%" border="0" style="border-width:2px;" id="tblData" class="tablesorter">
 			<thead>
 			<tr>	
 				<!-- <td>
@@ -435,47 +497,47 @@ function checker()
 			<%-- <td>
 				 
 			</td> --%>
-			<td align="center">
-				<table>
-					<tr>
-						<td>
-							<button value="Edit" name="Editbtn" type="button" onclick="editTasks('<%=t.getName() %>','<%=t.getID() %>')"
-							style="background-color:transparent;border-style: none;cursor:auto;">
-								<u>Edit</u>
-							</button>
-						</td>
-						<td>
-							<input type="button" name="Delete" onclick="deleteTasks(<%=t.getID() %>)" class="buttonClass" value="Delete" />
-						</td>
-						
-					</tr>
-				</table>
-			</td>			
-			<td><%=t.getName() %>
-				<label id="lblID" style="display:none;"><%=t.getID() %></label>
-			
-			</td>
-			<td>
-				<%=t.getDueDate() %>
-			</td>
-			<td><%=t.getPriority() %></td>
-			<td>
-				<%=
-				t.getDependsOn()	
-				 %>
-			</td>
-			<td>
-			
-				<%  if(t.isCompleted()){	 %>
-				Completed
-				<%}else{ %>
-				Incomplete 
-				<%} %>
-			</td>
-			
+				<td align="center">
+					<table>
+						<tr>
+							<td>
+								<button value="Edit" name="Editbtn" type="button" onclick="editTasks('<%=t.getName() %>','<%=t.getID() %>')"
+								style="background-color:transparent;border-style: none;cursor:auto;">
+									<u>Edit</u>
+								</button>
+							</td>
+							<td>
+								<input type="button" name="Delete" onclick="deleteTasks(<%=t.getID() %>)" class="buttonClass" value="Delete" />
+							</td>
+							
+						</tr>
+					</table>
+				</td>			
+				<td><%=t.getName() %>
+					<label id="lblID" style="display:none;"><%=t.getID() %></label>
+				
+				</td>
+				<td>
+					<%=t.getDueDate() %>
+				</td>
+				<td><%=t.getPriority() %></td>
+				<td>
+					<%=
+					t.getDependsOn()	
+					 %>
+				</td>
+				<td>
+				
+					<%  if(t.isCompleted()){	 %>
+					Completed
+					<%}else{ %>
+					Incomplete 
+					<%} %>
+				</td>
+				
 			</tr>
 			<% i++;} %>
-			<tr id="trNewRow">
+			<tr id="static">
 				<td align="center">
 					<button value="Add" name="Addbtn" type="button" id="Addbtn"
 						style="background-color: transparent; border-style: none; cursor: auto;">
@@ -513,8 +575,8 @@ function checker()
 					
 				</td>
 			</tr>
-			</tbody>
-		</table>
+		</tbody>
+	</table>
 		
 		<%} %>
 	</td>
