@@ -26,7 +26,7 @@ $(document).ready(function() {
 });
 
 function addTask(str) {
-	
+	alert(str);
 	var params = str.split(",");
 	if(params.length == 6){
 		var url = "modifyTasks.jsp";
@@ -53,7 +53,7 @@ function removeTask(str) {
 		url+= "&sid=" + Math.random();
 		
 		$.get(url, function(result) {
-			deleteResult('1',params[0]);
+			deleteResult('1',params[1]);
 		});
 	} else {
 		deleteResult("Insufficient arguments " + str,params[1]);
@@ -98,16 +98,21 @@ function deleteResult(str,id)
 	else
 		{
 		
-			alert('Hi');
+			alert('Hi-in delete method');
 			//var oTempData=str.split(',');
 			var oTable=document.getElementById('tblData');
 			var oRowsCount=oTable.rows.length;
 			alert(oTable.rows.length);
 			for(var i=0;i<oTable.rows.length;i++)
 				{
-				 alert(oTable.rows[i].cells[1].childNodes[0]);
-					if(oTable.rows[i].cells[1].childen[0] == id)
-						oTable.deleteRow(i);
+					var oTester=oTable.rows[i].cells[1].childNodes[1];
+					if(oTester!=undefined)
+						{
+							alert(oTable.rows[i].cells[1].childNodes[1]);
+							if(oTable.rows[i].cells[1].childNodes[1].innerText == id)
+								oTable.deleteRow(i);
+						}
+						
 				}
 		}
 }
@@ -127,6 +132,9 @@ function addTaskResult(str){
 	 element2.type="button";
 	 element2.value="Delete";
 	 element2.className="buttonClass";
+	 
+	 var elementLabel=document.createElement("label");
+	 elementLabel.innerText=str.split(',')[0];
 	
 	var oRowCount=oTempTable.rows.length;
 	
@@ -135,10 +143,8 @@ function addTaskResult(str){
 	 alert(str);
 	oRow.id="newRow-" + oRowCount;
 	
-	var element4=document.createElement("label");
 	
-	element4.innerText=str.split(',')[0];
-	element4.style.display="none";
+	//elementLabel.style.display="none";
 
 	var oCell1=oRow.insertCell(0);
 	var oCell2=oRow.insertCell(1);
@@ -147,11 +153,12 @@ function addTaskResult(str){
 	var oCell5=oRow.insertCell(4);
 	var oCell6=oRow.insertCell(5);
 	
-	oCell2.innerHTML=oVals[1];	 
+		 
 	oCell3.innerHTML=oVals[3];
 	oCell4.innerHTML=oVals[2];
 	oCell5.innerHTML=oVals[4];
-	if(oVals[5] == "false")
+	
+	if(oVals[5] == "false" || oVals[5] == "FALSE")
 		oCell6.innerHTML="Incomplete";
 	else
 		oCell6.innerHTML="Complete";
@@ -170,6 +177,8 @@ function addTaskResult(str){
 	 oCell1.align="center";
 	 oCell1.appendChild(element1);
 	 oCell1.appendChild(element2);
+	 oCell2.appendChild(elementLabel);
+	 oCell2.innerHTML=oVals[1];
 	
 }
 
@@ -181,7 +190,7 @@ function editCells(str)
 	for(var j=0;j<oRowLength;j++)
 		{
 			var oTRowLength=oTempTable.rows[j].cells.length;
-			for(var k=0;k<oTRowLength;k++)
+			for(var k=1;k<2;k++)
 				{
 					var oTRow=oTempTable.rows[j];
 					var oCell=oTRow.cells[k];
@@ -239,6 +248,10 @@ function editCells(str)
 											oCell4.innerHTML=str.split(',')[3];
 											oCell5.innerHTML=str.split(',')[5];
 											oCell6.innerHTML=str.split(',')[6];
+											if(oCell6.innerHTML == "false")
+												oCell6.innerHTML="Incomplete";
+											else
+												oCell6.innerHTML="Complete";
 											
 										 element2.onclick=function() {
 											 
