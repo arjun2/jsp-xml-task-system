@@ -136,6 +136,9 @@ function addTaskResult(str){
 	 var elementLabel=document.createElement("label");
 	 elementLabel.innerText=str.split(',')[0];
 	
+	 var elementLabelName=document.createElement("label");
+	 elementLabelName.innerText=str.split(',')[1];
+	 
 	var oRowCount=oTempTable.rows.length;
 	
 	var oRow=oTempTable.insertRow(oRowCount-1);
@@ -178,7 +181,8 @@ function addTaskResult(str){
 	 oCell1.appendChild(element1);
 	 oCell1.appendChild(element2);
 	 oCell2.appendChild(elementLabel);
-	 oCell2.innerHTML=oVals[1];
+	 oCell2.appendChild(elementLabelName);
+	 //oCell2.innerHTML=oVals[1];
 	
 }
 
