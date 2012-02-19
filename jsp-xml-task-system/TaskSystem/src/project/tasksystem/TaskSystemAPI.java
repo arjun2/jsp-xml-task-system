@@ -207,10 +207,24 @@ public class TaskSystemAPI {
 	 */
 	public static String searchForTasks(String username, String searchString){
 		try{
+			String q = "<tasks> { " +
+			           "for $t in doc(\""+ username + "_tasks.xml\")//task[@name=\""+ searchString + "\"] " +
+			           "let $d := doc(\""+ username + "_tasks.xml\")//task[@ID=$t/@dependsOn]/@name " +
+			           "return <task ID='{$t/@ID}' " + 
+			           "name='{$t/@name}'  dueDate='{$t/@dueDate}' priority='{$t/@priority}' " +
+			           "dependsOn='{$d}' "  +
+			           "status='{ " +
+			           "if($t/@completed=\"" + "false" + "\") " +
+			           "then \"" + "Complete" + "\" " +
+			           "else " + 
+			           "\"" + "Incomplete" + "\"  " +
+			           "}'> " +
+			           "</task> } </tasks>";
+			
 			searchString=searchString.replaceAll("[^A-Za-z0-9/]", "");
 	        Processor proc = new Processor(false);
 	        XQueryCompiler comp = proc.newXQueryCompiler();
-	        XQueryExecutable exp = comp.compile("doc(\""+username+"_tasks.xml\")//task[@name=\""+searchString +"\" or @dueDate=\""+searchString +"\"]");
+	        XQueryExecutable exp = comp.compile(q);
 	        ByteArrayOutputStream sos = new ByteArrayOutputStream();
 	        Serializer out = proc.newSerializer(sos);
 	        out.setOutputProperty(Serializer.Property.METHOD, "xml");
