@@ -105,12 +105,19 @@ function deleteResult(str,id)
 			alert(oTable.rows.length);
 			for(var i=0;i<oTable.rows.length;i++)
 				{
-					var oTester=oTable.rows[i].cells[1].childNodes[1];
-					if(oTester!=undefined)
+					for(var z=0;z<2;z++)
 						{
-							alert(oTable.rows[i].cells[1].childNodes[1]);
-							if(oTable.rows[i].cells[1].childNodes[1].innerText == id)
-								oTable.deleteRow(i);
+							var oTester=oTable.rows[i].cells[z].childNodes[1];
+							if(oTester!=undefined)
+							{
+								alert(oTable.rows[i].cells[z].childNodes[1]);
+								if(oTable.rows[i].cells[z].childNodes[1].textContent == id.replace(/^\s+|\s+$/g,""))
+									{
+										oTable.deleteRow(i);
+										break;
+									}
+							}
+							
 						}
 						
 				}
@@ -135,6 +142,7 @@ function addTaskResult(str){
 	 
 	 var elementLabel=document.createElement("label");
 	 elementLabel.innerText=str.split(',')[0];
+	 elementLabel.style.display="none";
 	
 	 var elementLabelName=document.createElement("label");
 	 elementLabelName.innerText=str.split(',')[1];
@@ -179,10 +187,12 @@ function addTaskResult(str){
 	
 	 oCell1.align="center";
 	 oCell1.appendChild(element1);
+	 oCell1.appendChild(elementLabel);
 	 oCell1.appendChild(element2);
-	 oCell2.appendChild(elementLabel);
-	 oCell2.appendChild(elementLabelName);
-	 //oCell2.innerHTML=oVals[1];
+	 
+	 //oCell2.appendChild(elementLabelName);
+	 //oCell2.valign="middle";
+	 oCell2.innerHTML=oVals[1];
 	
 }
 
@@ -246,7 +256,7 @@ function editCells(str)
 										 	
 										 }
 										 
-										 	oCell2.appendChild(element4);
+										 	
 										 	oCell2.innerHTML=str.split(',')[2];	 
 											oCell3.innerHTML=str.split(',')[4];
 											oCell4.innerHTML=str.split(',')[3];
@@ -269,6 +279,7 @@ function editCells(str)
 										
 										 oCell1.align="center";
 										 oCell1.appendChild(element1);
+										 oCell1.appendChild(element4);
 										 oCell1.appendChild(element2);
 										break;
 										
