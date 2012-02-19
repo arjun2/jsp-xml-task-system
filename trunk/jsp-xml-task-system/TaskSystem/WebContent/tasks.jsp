@@ -134,167 +134,182 @@ function editTasks(id)
 	
 	for(var i=0;i<oRowLength;i++)
 	{
-		if(i == (id))
-		{
-		
-			var oTRow=oTempTable.rows[id];
-			var oCell=oTRow.cells[0];
-			var element=document.createElement("input");
-			 element.type="button";
-			 element.value="Update";
-			 element.className="buttonClass";
-			 
-			 element.onclick=function() {
-				 
-				 updateTasks(id);
-			 };
-			 
-			 while(oCell.childNodes.length >= 1)
-				 {
-				   
-				 	oCell.removeChild(oCell.firstChild);
-				 	
-				 }
-				 
-			 oCell.align="center";
-			 oCell.appendChild(element);
-			 
-			var oCell=oTRow.cells[1];
-			
-			
-			var element=document.createElement("input");
-			element.type="text";
-			element.value=oCell.innerText;
-			var TaskName=oCell.innerText;
-			//TaskName=TaskName.split('');
-			
-			var oLabel=document.createElement("label");
-			oLabel.innerText=oCell.childNodes[1].innerText;
-			oLabel.style.display="none";
-			
-			oCell.innerText="";
-			oCell.appendChild(element);
-			oCell.appendChild(oLabel);
-			
-			
-			var oCell=oTRow.cells[2];
-			var element=document.createElement("input");
-			element.type="text";
-			element.value=oCell.innerText;
-			element.setAttribute("class", "DateClass");
-			element.setAttribute("onclick","checker()");
-			
-			
-			
-			oCell.innerText="";
-			oCell.appendChild(element);
-			
-			
-			var oCell=oTRow.cells[3];
-			var element=document.createElement("select");
-			var elementOption=document.createElement("option");
-			elementOption.setAttribute("value","High");
-			elementOption.innerText="High";
-			var elementOption1=document.createElement("option");
-			elementOption1.setAttribute("value","Medium");
-			elementOption1.innerText="Medium";
-			//("Medium");
-			var elementOption2=document.createElement("option");
-			elementOption2.setAttribute("value","Low");
-			elementOption2.innerText="Low";
-			
-			
-			
-			
-			
-			element.appendChild(elementOption);
-			element.appendChild(elementOption1);
-			element.appendChild(elementOption2);
-			
-			
-			for(var k=0;k<3;k++)
-				{
-					if(element.options[k].value == oCell.innerText)
-						element.options[k].selected=true;
-				}
-			
-			oCell.innerText="";
-			oCell.appendChild(element);
-			
-			
-			var oCell=oTRow.cells[4];
-			
-			var DependsOnList=document.getElementById("drpDependsOn");
-			var element=document.createElement("select");
-			
-			var oVal= oCell.innerText;
-			if(oVal == "null")
-				oVal="";
-			var oIndex;
-			
-			
-			for(var m=0;m<DependsOnList.options.length;m++)
+		var oTRowLength=oTempTable.rows[i].cells.length;
+		for(var l=0;l<oTRowLength;l++)
 			{
+				var oTRow=oTempTable.rows[i];
+				var oCell=oTRow.cells[l];
+				if(oTRow.cells[l].hasChildNodes())
+					{
+						var oChecker=oTRow.cells[l].childNodes[0];
+						if(oChecker!= undefined)
+							if(oChecker.data!= undefined)
+								if(oChecker.data.replace(/^\s+|\s+$/g,"") == id)
+								{
+									var oRowIndexNew=i;
+									var oTRow=oTempTable.rows[i];
+									var oCell=oTRow.cells[0];
+									var element=document.createElement("input");
+									 element.type="button";
+									 element.value="Update";
+									 element.className="buttonClass";
+									 
+									 element.onclick=function() {
+										 
+										 updateTasks(oRowIndexNew);
+									 };
+									 
+									 while(oCell.childNodes.length >= 1)
+										 {
+										   
+										 	oCell.removeChild(oCell.firstChild);
+										 	
+										 }
+										 
+									 oCell.align="center";
+									 oCell.appendChild(element);
+									 
+									var oCell=oTRow.cells[1];
+									
+									
+									var element=document.createElement("input");
+									element.type="text";
+									element.value=oCell.innerText;
+									var TaskName=oCell.innerText;
+									//TaskName=TaskName.split('');
+									
+									var oLabel=document.createElement("label");
+									oLabel.innerText=oCell.childNodes[1].innerText;
+									oLabel.style.display="none";
+									
+									oCell.innerText="";
+									oCell.appendChild(element);
+									oCell.appendChild(oLabel);
+									
+									
+									var oCell=oTRow.cells[2];
+									var element=document.createElement("input");
+									element.type="text";
+									element.value=oCell.innerText;
+									element.setAttribute("class", "DateClass");
+									element.setAttribute("onclick","checker()");
+									
+									
+									
+									oCell.innerText="";
+									oCell.appendChild(element);
+									
+									
+									var oCell=oTRow.cells[3];
+									var element=document.createElement("select");
+									var elementOption=document.createElement("option");
+									elementOption.setAttribute("value","High");
+									elementOption.innerText="High";
+									var elementOption1=document.createElement("option");
+									elementOption1.setAttribute("value","Medium");
+									elementOption1.innerText="Medium";
+									//("Medium");
+									var elementOption2=document.createElement("option");
+									elementOption2.setAttribute("value","Low");
+									elementOption2.innerText="Low";
+									
+									
+									
+									
+									
+									element.appendChild(elementOption);
+									element.appendChild(elementOption1);
+									element.appendChild(elementOption2);
+									
+									
+									for(var k=0;k<3;k++)
+										{
+											if(element.options[k].value == oCell.innerText)
+												element.options[k].selected=true;
+										}
+									
+									oCell.innerText="";
+									oCell.appendChild(element);
+									
+									
+									var oCell=oTRow.cells[4];
+									
+									var DependsOnList=document.getElementById("drpDependsOn");
+									var element=document.createElement("select");
+									
+									var oVal= oCell.innerText;
+									if(oVal == "null")
+										oVal="";
+									var oIndex;
+									
+									
+									for(var m=0;m<DependsOnList.options.length;m++)
+									{
+										
+										elementOption1=document.createElement("option");
+										elementOption1.setAttribute("value",DependsOnList.options[m].value);
+										elementOption1.text=DependsOnList.options[m].text;
+										element.appendChild(elementOption1);
+									}
+									
+									for(k=0;k<DependsOnList.options.length;k++)
+										{
+											if(element.options[k].value == oVal)
+												oIndex=k;
+											
+											if(element.options[k].text == TaskName)
+											{							
+												
+												element.options[k].style.display="none";
+											}	
+										}
+									
+									element.selectedIndex=oIndex;
+								
+									oCell.innerText="";
+									oCell.appendChild(element);
+									
+									var oCell=oTRow.cells[5];
+									element=document.createElement("select");
+									var oList=document.getElementById("drpStatus");
+									for(k=0;k<oList.options.length;k++)
+									{
+										var elementOption=document.createElement("option");
+										elementOption.setAttribute("value",oList.options[k].value);
+										elementOption.text=oList.options[k].text;
+										element.appendChild(elementOption);
+									}
+									
+									for(k=0;k<oList.options.length;k++)
+									{
+										if(element.options[k].text == oCell.innerText)
+										{	element.selectedIndex=k;
+										     break;
+										}
+									}
+									
+									
+									oCell.innerText="";
+									oCell.appendChild(element);	
+									break;
+									break;
+									
+								}
+					}
 				
-				elementOption1=document.createElement("option");
-				elementOption1.setAttribute("value",DependsOnList.options[m].value);
-				elementOption1.text=DependsOnList.options[m].text;
-				element.appendChild(elementOption1);
 			}
-			
-			for(k=0;k<DependsOnList.options.length;k++)
-				{
-					if(element.options[k].value == oVal)
-						oIndex=k;
-					
-					if(element.options[k].text == TaskName)
-					{							
-						
-						element.options[k].style.display="none";
-					}	
-				}
-			
-			element.selectedIndex=oIndex;
 		
-			oCell.innerText="";
-			oCell.appendChild(element);
-			
-			var oCell=oTRow.cells[5];
-			element=document.createElement("select");
-			var oList=document.getElementById("drpStatus");
-			for(k=0;k<oList.options.length;k++)
-			{
-				var elementOption=document.createElement("option");
-				elementOption.setAttribute("value",oList.options[k].value);
-				elementOption.text=oList.options[k].text;
-				element.appendChild(elementOption);
-			}
-			
-			for(k=0;k<oList.options.length;k++)
-			{
-				if(element.options[k].text == oCell.innerText)
-				{	element.selectedIndex=k;
-				     break;
-				}
-			}
-			
-			
-			oCell.innerText="";
-			oCell.appendChild(element);
-			
-			
-			
-		}
+		
 	}
 	
 	//var oRow=oTempTable.get
 }
 
-function updateTasks(oRowInx)
+function updateTasks(orowID)
 {
-	alert(oRowInx);
+	alert(orowID);
 	var oTempTable=document.getElementById('tblData');
-	 oTRow=oTempTable.rows[oRowInx];
+	 oTRow=oTempTable.rows[orowID];
 	
 	   var oCell=oTRow.cells[1];
 		
@@ -303,6 +318,10 @@ function updateTasks(oRowInx)
 		
 	  oCell=oTRow.cells[2];
 	  var oDate=oCell.childNodes[0].value;
+	  if(oDate.indexOf('-')!=-1)
+	  	oDate=oDate.replace('-','/');
+	  if(oDate.indexOf('-')!=-1)
+		  	oDate=oDate.replace('-','/');
 	
 	  oCell=oTRow.cells[3];
 	  var oPriority=oCell.childNodes[0].value;
@@ -420,7 +439,7 @@ function checker()
 				<table>
 					<tr>
 						<td>
-							<button value="Edit" name="Editbtn" type="button" onclick="editTasks(<%= i %>)"
+							<button value="Edit" name="Editbtn" type="button" onclick="editTasks('<%=t.getName() %>')"
 							style="background-color:transparent;border-style: none;cursor:auto;">
 								<u>Edit</u>
 							</button>
