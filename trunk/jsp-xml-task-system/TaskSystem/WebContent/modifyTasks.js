@@ -71,20 +71,21 @@ function editTask(str) {
 		url+="&DEPENDS_ON=" + params[5] + "&COMPLETED=" + params[6];
 		url+= "&sid=" + Math.random();
 		$.get(url, function(result) {
-			showResult(result);
+			showResult(result,str);
 		});
 	} else {
 		showResult("not all parameters mentioned: " + str);
 	}
 }
 
-function showResult(str){
+function showResult(str,result){
 	if(str.valueOf() != 0)
 		alert("printing " + str);
 	else 
 		{
 			alert("result is 0");
 			
+			editCells(result);
 		}
 		
 }
@@ -167,3 +168,96 @@ function addTaskResult(str){
 	 oCell1.appendChild(element2);
 	
 }
+
+function editCells(str)
+{
+	var oTemp=false;
+	var oTempTable=document.getElementById('tblData');
+	var oRowLength=oTempTable.rows.length;
+	for(var j=0;j<oRowLength;j++)
+		{
+			var oTRowLength=oTempTable.rows[j].cells.length;
+			for(var k=0;k<oTRowLength;k++)
+				{
+					var oTRow=oTempTable.rows[j];
+					var oCell=oTRow.cells[k];
+					
+					if(oTRow.cells[k].hasChildNodes())
+						{
+							var oChecker=oTRow.cells[k].childNodes[1];
+							if(oChecker!= undefined)
+								if(oChecker.innerText == str.split(',')[0])
+									{
+										alert('matched');
+										oTemp=true;
+										var oCell1=oTRow.cells[0];
+										var oCell2=oTRow.cells[1];
+										var oCell3=oTRow.cells[2];
+										var oCell4=oTRow.cells[3];
+										var oCell5=oTRow.cells[4];
+										var oCell6=oTRow.cells[5];
+										
+										var element4=document.createElement("label");
+										
+										element4.innerText=str.split(',')[0];
+										element4.style.display="none";
+										
+										
+										
+											
+										var element1=document.createElement("input");
+										 element1.type="button";
+										 element1.value="Edit";
+										 element1.className="buttonClass";
+										 
+										 var element2=document.createElement("input");
+										 element2.type="button";
+										 element2.value="Delete";
+										 element2.className="buttonClass";
+										 
+										 
+										 
+										 while(oCell1.childNodes.length >= 1)
+										 {
+										   
+										 	oCell1.removeChild(oCell1.firstChild);
+										 	oCell2.removeChild(oCell2.firstChild);
+										 	oCell3.removeChild(oCell3.firstChild);
+										 	oCell4.removeChild(oCell4.firstChild);
+										 	oCell5.removeChild(oCell5.firstChild);
+										 	oCell6.removeChild(oCell6.firstChild);
+										 	
+										 }
+										 
+										 	oCell2.appendChild(element4);
+										 	oCell2.innerHTML=str.split(',')[2];	 
+											oCell3.innerHTML=str.split(',')[4];
+											oCell4.innerHTML=str.split(',')[3];
+											oCell5.innerHTML=str.split(',')[5];
+											oCell6.innerHTML=str.split(',')[6];
+											
+										 element2.onclick=function() {
+											 
+											 deleteTasks(str.split(',')[0]);
+										 };
+										
+										 element1.onclick=function() {
+											 
+											 editTasks(str.split(',')[2]);
+										 };
+										
+										 oCell1.align="center";
+										 oCell1.appendChild(element1);
+										 oCell1.appendChild(element2);
+										break;
+										
+										
+									}
+						}
+					
+					
+				}
+		
+		}
+	
+	}
