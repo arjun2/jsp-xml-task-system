@@ -144,6 +144,10 @@ try{
  							 taskList.get(i).getName();
  			}
  		out.print(action);
+ 	} else if (action.equals("SEARCH")){
+ 		String taskName = (String) request.getParameter("NAME");
+ 		String r = TaskSystemAPI.searchForTasks(user, taskName);
+ 		out.print(r);
  	} else
 		out.print(action);
 } catch (Exception e){
