@@ -123,7 +123,7 @@ function updateTasks()
 	document.getElementById('txtBoxName').focus();	
 }
 	
-function editTasks(id)
+function editTasks(id,oTaskID)
 {
 	alert('Edit');
 	var oTempTable=document.getElementById('tblData');
@@ -179,7 +179,7 @@ function editTasks(id)
 									//TaskName=TaskName.split('');
 									
 									var oLabel=document.createElement("label");
-									oLabel.innerText=oCell.childNodes[1].innerText;
+									oLabel.innerText=oTaskID;
 									oLabel.style.display="none";
 									
 									oCell.innerText="";
@@ -439,7 +439,7 @@ function checker()
 				<table>
 					<tr>
 						<td>
-							<button value="Edit" name="Editbtn" type="button" onclick="editTasks('<%=t.getName() %>')"
+							<button value="Edit" name="Editbtn" type="button" onclick="editTasks('<%=t.getName() %>','<%=t.getID() %>')"
 							style="background-color:transparent;border-style: none;cursor:auto;">
 								<u>Edit</u>
 							</button>
