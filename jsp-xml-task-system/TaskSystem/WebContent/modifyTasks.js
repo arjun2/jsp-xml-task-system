@@ -132,9 +132,13 @@ function addTaskResult(str){
 	
 	var oRow=oTempTable.insertRow(oRowCount-1);
 	
-	 
+	 alert(str);
 	oRow.id="newRow-" + oRowCount;
 	
+	var element4=document.createElement("label");
+	
+	element4.innerText=str.split(',')[0];
+	element4.style.display="none";
 
 	var oCell1=oRow.insertCell(0);
 	var oCell2=oRow.insertCell(1);
@@ -160,7 +164,7 @@ function addTaskResult(str){
 	
 	 element1.onclick=function() {
 		 
-		 editTasks(oRowCount);
+		 editTasks(str.split(',')[1],str.split(',')[0]);
 	 };
 	
 	 oCell1.align="center";
@@ -243,7 +247,7 @@ function editCells(str)
 										
 										 element1.onclick=function() {
 											 
-											 editTasks(str.split(',')[2]);
+											 editTasks(str.split(',')[2],str.split(',')[0]);
 										 };
 										
 										 oCell1.align="center";
