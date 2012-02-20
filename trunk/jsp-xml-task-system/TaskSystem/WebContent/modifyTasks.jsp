@@ -1,7 +1,3 @@
-/*
- modifyTasks.jsp is jsp program that provides task add, edit, remove and search
- functionality. The jsp is called from the front end using AJAX call.	
-*/
 <%@ page 
 import="org.w3._1999.xhtml.TaskType" 
 import="project.tasksystem.TaskSystemAPI"
