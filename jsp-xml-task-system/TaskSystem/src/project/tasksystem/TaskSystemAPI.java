@@ -207,7 +207,7 @@ public class TaskSystemAPI {
 	 */
 	public static String searchForTasks(String username, String searchString){
 		try{
-			String q = "<tasks> { " +
+		    String q = "<tasks> { " +
 			           "for $t in doc(\""+ username + "_tasks.xml\")//task[@name=\""+ searchString + "\"] " +
 			           "let $d := doc(\""+ username + "_tasks.xml\")//task[@ID=$t/@dependsOn]/@name " +
 			           "return <task ID='{$t/@ID}' " + 
@@ -257,7 +257,7 @@ public class TaskSystemAPI {
 
             // Use a Transformer for output
             TransformerFactory tFactory = TransformerFactory.newInstance();
-            StreamSource stylesource = new StreamSource(new File("transform_xquery_results.xsl"));
+            StreamSource stylesource = new StreamSource(new File("transform1.xsl"));
             Transformer transformer = tFactory.newTransformer(stylesource);
 
             DOMSource source = new DOMSource(document);
