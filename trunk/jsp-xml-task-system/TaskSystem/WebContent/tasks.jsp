@@ -33,16 +33,28 @@ if (username == null|| username.equals("")){
 
 function bodyLoad()
 {
-	alert('hi');
+	
 	var oTempDropList=(document.getElementById('drpDependsOn'));
-	alert(oTempDropList.options.length);
+	//alert(oTempDropList.options.length);
 	var oBTable=document.getElementById('tblData');
 	var rowCount=oBTable.rows.length;
-	for(var q=0;q<rowCount;q++)
+	for(var q=0;q<rowCount-1;q++)
 		{
 		
 			var oCellDepends=oBTable.rows[q].cells[4];
-			alert(oCellDepends);
+			
+			for(var x=0;x<oTempDropList.options.length;x++)
+				{
+					if(oTempDropList.options[x].value == oCellDepends.innerText)
+						{
+							oCellDepends.innerText=oTempDropList.options[x].text;
+						
+						}
+					
+					if(oCellDepends.innerText == "0" || oCellDepends.innerText == ""||oCellDepends.innerText == "null")
+						oCellDepends.innerText="";
+				
+				}
 		
 		}
 	
@@ -158,8 +170,8 @@ $(function() {
 
 function deleteTasks(oID)
 {
-	alert('Delete');
-	alert(oID);
+	//alert('Delete');
+	//alert(oID);
 	var oDeleteMsg= $('#lblUserName').text() + ','+  oID;
 	//alert(oDeleteMsg);
 	removeTask(oDeleteMsg);
@@ -191,10 +203,10 @@ function updateTasks()
 	
 function editTasks(id,oTaskID)
 {
-	alert('Edit');
+	//alert('Edit');
 	var oTempTable=document.getElementById('tblData');
 	var oRowLength=oTempTable.rows.length;
-	alert(id);
+	//alert(id);
 	
 	
 	
@@ -320,7 +332,7 @@ function editTasks(id,oTaskID)
 									
 									for(k=0;k<DependsOnList.options.length;k++)
 										{
-											if(element.options[k].value == oVal)
+											if(element.options[k].value == oVal || element.options[k].text == oVal)
 												oIndex=k;
 											
 											if(element.options[k].text == TaskName)
@@ -373,7 +385,7 @@ function editTasks(id,oTaskID)
 
 function updateTasks(orowID)
 {
-	alert('update');
+	//alert('update');
 	var oTempTable=document.getElementById('tblData');
 	 oTRow=oTempTable.rows[orowID];
 	
@@ -397,7 +409,7 @@ function updateTasks(orowID)
 		  var oMonth=oDateSplit[1];
 		  var oDay=oDateSplit[2];
 		   onewDate=oMonth + "/" + oDay + "/" + oYear;
-		   alert(onewDate);
+		   //alert(onewDate);
 	  }
 	  
 	
@@ -407,7 +419,11 @@ function updateTasks(orowID)
 	  var oPriority=oCell.childNodes[0].value;
 	  
 	  oCell=oTRow.cells[4];
+	  
 	  var oDepends=oCell.childNodes[0].value;
+	  
+	  
+	  
 	  if(oDepends=="")
 		  oDepends="0";
 	  
@@ -437,15 +453,15 @@ function Datechecker()
 	$('.DatNew').datepicker({
 		   onSelect: function(dateText, inst) { 
 			   
-			   alert(inst);
-			   alert(document.getElementById('txtSearchStatus').value);
+			   //alert(inst);
+			   ///alert(document.getElementById('txtSearchStatus').value);
 			   
 		   }
 		});
 	
 	if(document.getElementById('txtSearchStatus').value != "")
 		{
-			alert(document.getElementById('txtSearchStatus').value);
+			//alert(document.getElementById('txtSearchStatus').value);
 			displaySearchResults('D');
 		}
 }
