@@ -1,3 +1,7 @@
+/*
+ modifyTasks.jsp is jsp program that provides task add, edit, remove and search
+ functionality. The jsp is called from the front end using AJAX call.	
+*/
 <%@ page 
 import="org.w3._1999.xhtml.TaskType" 
 import="project.tasksystem.TaskSystemAPI"
@@ -18,16 +22,13 @@ ArrayList<TaskType> taskList=
 	(ArrayList<TaskType>)TaskSystemAPI.getUsersTasks(user);
 try{
 	if(action.equals("ADD") || action.equals("EDIT")){
+		//Task add and edit functionality
 	 	String name = (String) request.getParameter("NAME");
 	 	String priority = (String) request.getParameter("PRIORITY");
 	 	String dueDate = (String) request.getParameter("DUE_DATE");
 	 	String dependsOn = (String) request.getParameter("DEPENDS_ON");
 	 	String completed = (String) request.getParameter("COMPLETED");
-		//GregorianCalendar c = new GregorianCalendar();
-		//DateFormat d = new SimpleDateFormat("mm-dd-yy");;
-		//c.setTime(d.parse(dueDate));
-		//XMLGregorianCalendar date = 
-			//DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
+		//add task
 		if(action.equals("ADD")){
 			TaskType tsk = new TaskType();
 			int[] id = new int[taskList.size()];
@@ -56,30 +57,27 @@ try{
 			completed;
 			out.print(newTask);
 		} else {
+			//edit task
 			int taskIndex=-1;
 			boolean allowEdit=false;
 			int id = Integer.parseInt((String) request.getParameter("ID"));
 			Boolean t_completed = Boolean.parseBoolean(completed);
 			for(int i=0; i<taskList.size() ; i++){
-				//System.out.println("task name " + taskList.get(i).getName());
-				//System.out.println("task ID " + taskList.get(i).getID());
 				if( id==taskList.get(i).getID()){
 					taskIndex=i;
 					//break;
 				}
 			}
 			if(t_completed.booleanValue()){
-				//Integer dependsOntaskId = 
-				//					taskList.get(taskIndex).getDependsOn();
 				if(dependsOn.length() != 0){
 					int _t=Integer.parseInt(dependsOn);
 					int dependsOnIndex=-1;
 					for(int i=0; i<taskList.size() ; i++)
 						if(_t==taskList.get(i).getID())
 							dependsOnIndex=i;
-					System.out.println("dependsOn: "+dependsOn);
-					System.out.println("test completed " + taskList.get(dependsOnIndex).isCompleted()); 
-					System.out.println(""+ taskList.get(dependsOnIndex).getName());
+					//System.out.println("dependsOn: "+dependsOn);
+					//System.out.println("test completed " + taskList.get(dependsOnIndex).isCompleted()); 
+					//System.out.println(""+ taskList.get(dependsOnIndex).getName());
 							
 					if( taskList.get(dependsOnIndex).isCompleted() )
 						allowEdit=true;
@@ -111,6 +109,7 @@ try{
 			}
 		}
  	} else if(action.equals("REMOVE")){
+ 		//remove task
 		 int id = Integer.parseInt((String) request.getParameter("ID"));
 		 int taskToRemove=-1;
 		 boolean dependent = false;
@@ -135,6 +134,7 @@ try{
 				 out.print("No task found");
 		 }
  	} else if(action.equals("TASKLIST")){
+ 		//return a list task id with their name
  		String taskIdValue="";
  		for(int i=0; i<taskList.size() ; i++)
  			if(!taskList.get(i).isCompleted()){
@@ -145,6 +145,7 @@ try{
  			}
  		out.print(action);
  	} else if (action.equals("SEARCH")){
+ 		//Provide search functionality
  		String taskName = (String) request.getParameter("NAME");
  		String x = TaskSystemAPI.searchForTasks(user, taskName);
  		String r = TaskSystemAPI.getTransformedXML(x);
