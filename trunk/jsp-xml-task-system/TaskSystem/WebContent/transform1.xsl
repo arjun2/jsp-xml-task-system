@@ -4,7 +4,7 @@
 	<xsl:output method="html" indent="yes"/>
 	<xsl:template match="/">
 		<table class="tablesorter" border="1">
-			<tr bgcolor="yellow">
+			<tr>
 				<th>Name</th>
 				<th>Due Date</th>
 				<th>Priority</th>
