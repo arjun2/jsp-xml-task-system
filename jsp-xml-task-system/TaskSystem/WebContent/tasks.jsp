@@ -96,7 +96,7 @@ $(document).ready(function(){
 		//alert(oSendMsg+= $('#txtDate').val() );
 		
 		var oCheck=$('#txtDate').val();
-		if( $('#txtBoxName').val() != "Enter a Task name")
+		if( $('#txtBoxName').val() != "Enter a Task name" || $('#txtBoxName').val() !="")
 			{
 				if(oCheck!="")
 				{
@@ -118,6 +118,7 @@ $(document).ready(function(){
 			}
 		else
 			{
+				alert('Please provide all details of a task');
 				//search($('#lblUserName').text() + ",buy a car" );
 			}
 		

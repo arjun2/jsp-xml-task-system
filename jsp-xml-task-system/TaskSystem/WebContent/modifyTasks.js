@@ -134,6 +134,19 @@ function deleteResult(str,id)
 								if(oTable.rows[i].cells[z].childNodes[1].textContent == id.replace(/^\s+|\s+$/g,""))
 									{
 										oTable.deleteRow(i);
+
+										var DependsOnList=document.getElementById("drpDependsOn");
+										for(k=0;k<DependsOnList.options.length;k++)
+										{
+											if(DependsOnList.options[k].value == id.replace(/^\s+|\s+$/g,"") || DependsOnList.options[k].text == id.replace(/^\s+|\s+$/g,""))
+												var oIndex=k;
+											
+											if(DependsOnList.options[k].value == id.replace(/^\s+|\s+$/g,""))
+											{							
+												
+												DependsOnList.options[k].style.display="none";
+											}	
+										}
 										break;
 									}
 							}
