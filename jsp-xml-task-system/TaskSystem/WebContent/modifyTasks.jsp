@@ -146,7 +146,8 @@ try{
  		out.print(action);
  	} else if (action.equals("SEARCH")){
  		String taskName = (String) request.getParameter("NAME");
- 		String r = TaskSystemAPI.searchForTasks(user, taskName);
+ 		String x = TaskSystemAPI.searchForTasks(user, taskName);
+ 		String r = TaskSystemAPI.getTransformedXML(x);
  		out.print(r);
  	} else
 		out.print(action);
