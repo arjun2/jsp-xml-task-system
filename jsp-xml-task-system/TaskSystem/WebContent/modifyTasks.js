@@ -26,7 +26,7 @@ $(document).ready(function() {
 });
 
 function addTask(str) {
-	alert(str);
+	//alert(str);
 	var params = str.split(",");
 	if(params.length == 6){
 		var url = "modifyTasks.jsp";
@@ -36,7 +36,7 @@ function addTask(str) {
 		url+="&DEPENDS_ON=" + params[4] + "&COMPLETED=FALSE";
 		url+= "&sid=" + Math.random();
 		$.get(url, function(result) {
-			alert(result);
+			//alert(result);
 			addTaskResult(result);
 		});
 	} else {
@@ -61,7 +61,7 @@ function removeTask(str) {
 }
 
 function editTask(str) {
-	alert(str);
+	//alert(str);
 	var params = str.split(",");
 	if(params.length == 7){
 		var url = "modifyTasks.jsp";
@@ -80,10 +80,10 @@ function editTask(str) {
 
 function showResult(str,result){
 	if(str.valueOf() != 0)
-		alert("printing " + str);
+		alert(str);
 	else 
 		{
-			alert("result is 0");
+			//alert("result is 0");
 			
 			editCells(result);
 		}
@@ -112,17 +112,17 @@ function search(str){
 
 function deleteResult(str,id)
 {
-	alert('in delete method');
+	//alert('in delete method');
 	if(str != '1')
 		alert('Cannot Delete');
 	else
 		{
 		
-			alert('Hi-in delete method');
+			//alert('Hi-in delete method');
 			//var oTempData=str.split(',');
 			var oTable=document.getElementById('tblData');
 			var oRowsCount=oTable.rows.length;
-			alert(oTable.rows.length);
+			//alert(oTable.rows.length);
 			for(var i=0;i<oTable.rows.length;i++)
 				{
 					for(var z=0;z<2;z++)
@@ -130,7 +130,7 @@ function deleteResult(str,id)
 							var oTester=oTable.rows[i].cells[z].childNodes[1];
 							if(oTester!=undefined)
 							{
-								alert(oTable.rows[i].cells[z].childNodes[1]);
+								//alert(oTable.rows[i].cells[z].childNodes[1]);
 								if(oTable.rows[i].cells[z].childNodes[1].textContent == id.replace(/^\s+|\s+$/g,""))
 									{
 										oTable.deleteRow(i);
@@ -145,7 +145,7 @@ function deleteResult(str,id)
 }
 
 function addTaskResult(str){
-	alert(str);
+	//alert(str);
 	var oVals=str.split(',');
 	//var oRow="<tr><td><button>Edit</button></td></tr>";
 	var oTempTable=document.getElementById('tblData');
@@ -171,7 +171,7 @@ function addTaskResult(str){
 	
 	var oRow=oTempTable.insertRow(oRowCount-1);
 	
-	 alert(str);
+	// alert(str);
 	oRow.id="newRow-" + oRowCount;
 	
 	
@@ -205,7 +205,7 @@ function addTaskResult(str){
 		 editTasks(str.split(',')[1],str.split(',')[0]);
 	 };
 	
-	 oCell1.align="center";
+	 //oCell1.align="center";
 	 oCell1.appendChild(element1);
 	 oCell1.appendChild(elementLabel);
 	 oCell1.appendChild(element2);
@@ -213,6 +213,18 @@ function addTaskResult(str){
 	 //oCell2.appendChild(elementLabelName);
 	 //oCell2.valign="middle";
 	 oCell2.innerHTML=oVals[1];
+	 
+	 var oTempDropList=(document.getElementById('drpDependsOn'));
+		//alert(oTempDropList.options.length);
+		
+		
+	 var elementOption=document.createElement("option");
+		elementOption.setAttribute("value",oVals[0]);
+		elementOption.text=oVals[1];
+		oTempDropList.appendChild(elementOption);
+				
+				
+		
 	
 }
 
@@ -235,7 +247,7 @@ function editCells(str)
 							if(oChecker!= undefined)
 								if(oChecker.innerText == str.split(',')[0])
 									{
-										alert('matched');
+										//alert('matched');
 										oTemp=true;
 										var oCell1=oTRow.cells[0];
 										var oCell2=oTRow.cells[1];
@@ -297,7 +309,30 @@ function editCells(str)
 											 editTasks(str.split(',')[2],str.split(',')[0]);
 										 };
 										
-										 oCell1.align="center";
+										 
+										 var oTempDropList=(document.getElementById('drpDependsOn'));
+											//alert(oTempDropList.options.length);
+											
+											
+												
+													
+													
+											for(var x=0;x<oTempDropList.options.length;x++)
+												{
+													if(oTempDropList.options[x].value == oCell5.innerHTML)
+														{
+														oCell5.innerHTML=oTempDropList.options[x].text;
+														
+														}
+													
+													if(oCell5.innerHTML == "0")
+														oCell5.innerHTML="";
+												
+												}
+												
+											
+										 
+										 //oCell1.align="center";
 										 oCell1.appendChild(element1);
 										 oCell1.appendChild(element4);
 										 oCell1.appendChild(element2);
