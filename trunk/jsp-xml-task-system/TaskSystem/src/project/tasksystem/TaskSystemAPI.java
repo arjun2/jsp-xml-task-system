@@ -215,9 +215,9 @@ public class TaskSystemAPI {
 			           "dependsOn='{$d}' "  +
 			           "status='{ " +
 			           "if($t/@completed=\"" + "false" + "\") " +
-			           "then \"" + "Complete" + "\" " +
+			           "then \"" + "InComplete" + "\" " +
 			           "else " + 
-			           "\"" + "Incomplete" + "\"  " +
+			           "\"" + "Complete" + "\"  " +
 			           "}'> " +
 			           "</task> } </tasks>";
 			
