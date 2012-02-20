@@ -79,7 +79,7 @@ $(document).ready(function()
 </thead> 
 <tbody> 
 <tr> 
-    <td>Smith</td> 
+    <td valign="middle">Smith</td> 
     <td>John</td> 
     <td>jsmith@gmail.com</td> 
     <td>$50.00</td> 
