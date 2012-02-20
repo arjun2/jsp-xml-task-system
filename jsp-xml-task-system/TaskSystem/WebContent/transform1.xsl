@@ -4,6 +4,7 @@
 	<xsl:output method="html" indent="yes"/>
 	<xsl:template match="/">
 		<table class="tablesorter" border="1">
+			<thead> 
 			<tr>
 				<th>Name</th>
 				<th>Due Date</th>
@@ -11,11 +12,16 @@
 				<th>Depends On</th>
 				<th>Status</th>
 			</tr>
-			<xsl:apply-templates />
+			</thead>
+			<tbody> 
+				<xsl:apply-templates />
+			</tbody>
+			
+			
 		</table>
 	</xsl:template>
 	<xsl:template match="task">
-
+		
 		<tr>
 			<td>
 				<xsl:apply-templates select="@name" />

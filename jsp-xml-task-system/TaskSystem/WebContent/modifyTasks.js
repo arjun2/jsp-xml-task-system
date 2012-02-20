@@ -90,6 +90,26 @@ function showResult(str,result){
 		
 }
 
+function search(str){
+	var params = str.split(",");
+	if(str == "")
+		alert("Error");
+	else
+		{
+			var url = "modifyTasks.jsp";
+			url+= "?action=SEARCH";
+			url+="&USER=" + params[0] + "&NAME=" + params[1]; 
+			url+= "&sid=" + Math.random();
+			$.get(url, function(result) {
+				
+				document.getElementById('SearchDiv').innerHTML=result;
+				document.getElementById('SearchDiv').className="";
+				document.getElementById('tblData').className="HideDiv";
+			});
+		}
+}
+
+
 function deleteResult(str,id)
 {
 	alert('in delete method');

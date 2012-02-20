@@ -30,6 +30,24 @@ if (username == null|| username.equals("")){
  <script src="modifyTasks.js" type="text/javascript"></script>
 <script>
 
+
+function bodyLoad()
+{
+	alert('hi');
+	var oTempDropList=(document.getElementById('drpDependsOn'));
+	alert(oTempDropList.options.length);
+	var oBTable=document.getElementById('tblData');
+	var rowCount=oBTable.rows.length;
+	for(var q=0;q<rowCount;q++)
+		{
+		
+			var oCellDepends=oBTable.rows[q].cells[4];
+			alert(oCellDepends);
+		
+		}
+	
+	}
+
 $(document).ready(function(){
 	//$('#tblData').tablesorter();
 	 //$("#tblData").tablesorter(); 
@@ -67,21 +85,28 @@ $(document).ready(function(){
 		
 		var oCheck=$('#txtDate').val();
 		if( $('#txtBoxName').val() != "Enter a Task name")
-			if(oCheck!="")
 			{
-		
-				addTask(oSendMsg);
-				document.getElementById('txtDate').value="";
-				document.getElementById('txtBoxName').value="";
-				document.getElementById('drpPriority').selectedIndex=0;
-				document.getElementById('drpDependsOn').selectedIndex=0;
-				document.getElementById('drpStatus').selectedIndex=0;
-				document.getElementById('txtBoxName').focus();
+				if(oCheck!="")
+				{
+			
+					addTask(oSendMsg);
+					document.getElementById('txtDate').value="";
+					document.getElementById('txtBoxName').value="";
+					document.getElementById('drpPriority').selectedIndex=0;
+					document.getElementById('drpDependsOn').selectedIndex=0;
+					document.getElementById('drpStatus').selectedIndex=0;
+					document.getElementById('txtBoxName').focus();
+				}
+				else
+				{
+				
+					alert('Please provide all details of a task');
+					
+				}
 			}
 		else
 			{
-			
-				alert('Please provide all details of a task');
+				//search($('#lblUserName').text() + ",buy a car" );
 			}
 		
 	});
@@ -403,10 +428,65 @@ function checker()
 	$('.DateClass').datepicker({minDate: '+1d'});
 	}
 
+function Datechecker()
+{
+	
+	
+	$('.DatNew').datepicker({minDate: '+1d'});
+	
+	$('.DatNew').datepicker({
+		   onSelect: function(dateText, inst) { 
+			   
+			   alert(inst);
+			   alert(document.getElementById('txtSearchStatus').value);
+			   
+		   }
+		});
+	
+	if(document.getElementById('txtSearchStatus').value != "")
+		{
+			alert(document.getElementById('txtSearchStatus').value);
+			displaySearchResults('D');
+		}
+}
+
+
+
+function displaySearchResults(oFlag)
+{
+	//alert('hi');
+	//alert(document.getElementById('txtSearch').value);
+	//alert(oText.value);
+	if(oFlag == 'N')
+		{
+			if(document.getElementById('txtSearch').value != "")
+				search($('#lblUserName').text() + "," +  document.getElementById('txtSearch').value);
+			else
+				{
+					
+					document.getElementById('tblData').className="tablesorter";
+					document.getElementById('SearchDiv').className="HideDiv";
+				}
+		}
+	else if(oFlag=='D')
+		{
+		
+			if(document.getElementById('txtSearchStatus').value != "")
+				search($('#lblUserName').text() + "," +  document.getElementById('txtSearchStatus').value);
+			else
+				{
+					
+					document.getElementById('tblData').className="tablesorter";
+					document.getElementById('SearchDiv').className="HideDiv";
+				}
+		
+		}
+		
+}
 	
 </script>
 </head>
-<body style="background-color:#523127;">
+<body style="background-color:#523127;" onload="bodyLoad()">
 <table cellpadding="0"  cellspacing="0" width="80%" align="center" style="background-color:white">
 	<tr>
 	<td style="background-color:#F26D20;">
@@ -441,14 +521,14 @@ function checker()
 					Search by task name:
 				</td>
 				<td>
-					<input type="text" width="200px" id="txtSearch" />
+					<input type="text" width="200px" id="txtSearch" onkeyup="displaySearchResults('N')" />
 				</td>
 				
 				<td align="right">
-					Search by task status:
+					Search by date:
 				</td>
 				<td>
-					<input type="text" width="200px" id="txtSearchStatus" />
+					<input type="text" width="200px" id="txtSearchStatus" class="DatNew"    onkeyup="displaySearchResults('D')" />
 				</td>
 				
 			</tr>
@@ -581,6 +661,15 @@ function checker()
 		<%} %>
 	</td>
 </tr>
+<tr>
+	<td colspan="3">
+		<div id="SearchDiv" class="">
+
+		</div>
+	</td>
+	
+</tr>
+
 </table>
 
 
