@@ -208,7 +208,8 @@ public class TaskSystemAPI {
 	public static String searchForTasks(String username, String searchString){
 		try{
 		    String q = "<tasks> { " +
-			           "for $t in doc(\""+ username + "_tasks.xml\")//task[@name=\""+ searchString + "\" or @dueDate=\"" + searchString + "\"] " +
+			           "for $t in doc(\""+ username + "_tasks.xml\")//task[@name=\""+ searchString + 
+			           "\" or @dueDate=\"" + searchString + "\"] " +
 			           "let $d := doc(\""+ username + "_tasks.xml\")//task[@ID=$t/@dependsOn]/@name " +
 			           "return <task ID='{$t/@ID}' " + 
 			           "name='{$t/@name}'  dueDate='{$t/@dueDate}' priority='{$t/@priority}' " +
